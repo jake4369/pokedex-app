@@ -12,7 +12,7 @@ const SearchBar = ({ setPokemonName, setSelectedType }) => {
     e.preventDefault();
     setSelectedType("");
     if (name !== "") {
-      setPokemonName(name);
+      setPokemonName(name.toLowerCase());
       setName("");
     }
   };
