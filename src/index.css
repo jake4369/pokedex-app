@@ -1,0 +1,649 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ==========
+ NAVBAR
+ ========== */
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  height: 5rem;
+}
+
+.nav-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+ul.mobile-menu {
+  list-style-type: none;
+  position: absolute;
+  top: 5rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  min-height: 100vh;
+  height: 100%;
+  z-index: 1000;
+  padding: 2rem;
+  transform: translateX(-1000px);
+  opacity: 0;
+  background-image: url("./assets/menuIcons/ash.png");
+  background-repeat: no-repeat;
+  background-position: top right -90px;
+}
+
+ul.mobile-menu li a {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  color: #000;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+}
+
+.link-icon {
+  width: 2.1875rem;
+  margin-right: 1rem;
+}
+
+.slide-in-right {
+  -webkit-animation: slide-in-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-right 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-out-right {
+  -webkit-animation: slide-out-right 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53)
+    both;
+  animation: slide-out-right 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@-webkit-keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+@keyframes slide-out-right {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+}
+
+ul.desktop-menu {
+  display: none;
+}
+
+/* ==========
+ HOMEPAGE
+ ========== */
+.homepage h1 {
+  display: block;
+  width: 100%;
+  max-width: 69.375rem;
+  margin: 0 auto 2rem auto;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 69.375rem;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16.875rem;
+  height: 100px;
+  border-radius: 10px;
+  background-image: url("./assets/pokeball-white.png"),
+    url("./assets/pokeball-white.png");
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  background-position: center right -50px, top -50px left -50px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-transform: capitalize;
+  box-shadow: 0.3125rem 0.625rem 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+}
+
+.category-card:hover {
+  transform: scale(1.1);
+}
+
+/* ==========
+ POKEDEX PAGE
+ ========== */
+.pokedex-page h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* ==========
+ SEARCH BAR
+ ========== */
+.search-bar__form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 69.375rem;
+  margin: 0 auto 2rem auto;
+}
+
+.search-bar__input {
+  font-size: 1rem;
+  width: 70%;
+  max-width: 220px;
+  padding: 1rem 1rem;
+  background: none;
+  border-radius: 2rem 0 0 2rem;
+  outline: none;
+  border: none;
+  background-color: rgb(246, 246, 246);
+  color: #000;
+  height: 54px;
+}
+
+.search-bar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  max-width: 80px;
+  background-color: rgb(246, 246, 246);
+  padding: 1rem 0;
+  border-radius: 0 2rem 2rem 0;
+  border: none;
+  cursor: pointer;
+  height: 54px;
+  font-size: 1rem;
+  color: #000;
+}
+
+/* ==========
+ LOADING SPINNER
+ ========== */
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  display: block;
+  width: 12.5rem;
+  -webkit-animation: rotating 1.25s linear infinite;
+  -moz-animation: rotating 1.25s linear infinite;
+  -ms-animation: rotating 1.25s linear infinite;
+  -o-animation: rotating 1.25s linear infinite;
+  animation: rotating 1.25s linear infinite;
+  margin: 0 auto;
+}
+
+/* ==========
+ TYPE ICONS
+ ========== */
+.pokedex-page__type-icon-container {
+  width: 95%;
+  max-width: 550px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  align-items: center;
+  gap: 1.125rem 0;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.type-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  cursor: pointer;
+}
+
+.type-icon-container p {
+  display: inline-block;
+  text-transform: capitalize;
+  margin-top: 5px;
+}
+
+.pokedex__type-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ==========
+ TILE SECTION
+ ========== */
+/* SECTION */
+.tile-section {
+  max-width: 69.375rem;
+  margin: 0 auto 4rem auto;
+}
+
+/* GRID */
+.tile-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto 2rem auto;
+  gap: 2rem;
+}
+
+/* TILE */
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 18.75rem;
+  width: 90%;
+  max-width: 18.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-image: url("./assets/pokeball-white.png");
+  background-size: 12.5rem;
+  background-repeat: no-repeat;
+  background-position: center left -100px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.tile:hover {
+  transform: scale(1.1);
+  box-shadow: 0.3125rem 0.625rem 0.3125rem rgba(0, 0, 0, 0.4);
+}
+
+.tile-img {
+  width: 100%;
+  max-width: 200px;
+}
+
+.tile h2 {
+  text-transform: capitalize;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.tile__type-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0.625rem;
+  right: 0.3125rem;
+  width: 5.625rem;
+  z-index: 100;
+}
+
+.type-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  margin: auto;
+  transition: 0.3s all ease-in-out;
+  border: 0.0063rem solid #fff;
+}
+
+.tile__type-icon-container .tile__type-icon:hover {
+  filter: saturate(200%);
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.tile__type-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.type-icon img {
+  width: 60%;
+}
+
+/* ==========
+ POKEDEX PAGE MODAL
+ ========== */
+.pokedex-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.pokedex-modal__card {
+  background: #fff;
+  width: 90%;
+  max-width: 350px;
+  border-radius: 0.625rem;
+}
+
+.pokedex-modal__main-img {
+  display: block;
+  width: 100%;
+  max-width: 14.0625rem;
+  margin: 0 auto 1rem auto;
+}
+
+.pokedex-modal__card-header {
+  position: relative;
+  border-radius: 0.625rem 0.625rem 0 0;
+  margin-bottom: 1rem;
+  background-image: url("./assets/pokeball-white.png");
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: bottom -40px right -50px;
+  color: #fff;
+  padding: 1.5rem 1rem;
+  height: 25rem;
+  max-height: 25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.close-modal-btn {
+  display: block;
+  background: none;
+  outline: none;
+  border: none;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+
+.pokedex-modal__name-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 0.5rem 1rem;
+  margin: 0 auto 1rem auto;
+  text-transform: capitalize;
+}
+
+.pokedex-modal__name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.0625rem;
+}
+
+.pokedex-modal__id {
+  font-size: 1.125rem;
+  align-self: flex-end;
+}
+
+.pokedex-modal__card-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 6.25rem;
+  width: 6.25rem;
+}
+
+.pokedex-modal__card-type-icon {
+  width: 2.8125rem;
+  height: 2.8125rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* ===========
+ PAGINATION
+ ========== */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pagination__btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.pagination button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.375rem;
+  line-height: 3.125rem;
+  width: 50%;
+  max-width: 11.25rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border: 0.25rem solid #50514f;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.3125rem 1.25rem 0.1875rem rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  background-color: rgb(239, 89, 79);
+  text-transform: uppercase;
+  letter-spacing: 0.0625rem;
+  background: url("./assets/pokeball-white.png") no-repeat,
+    linear-gradient(180deg, #ef594f 46%, #000 50%, #fff 54%);
+  background-size: contain;
+}
+
+.pagination button.prev-page-btn {
+  background-position: left;
+  margin-right: 1rem;
+}
+
+.pagination button.next-page-btn {
+  background-position: right;
+}
+
+.btn-arrow {
+  font-size: 2rem;
+}
+
+.current-page-num {
+  display: inline-block;
+  margin: 0 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #4269b7;
+}
+
+@media (min-width: 600px) {
+  .mobile-menu,
+  .nav-btn {
+    display: none;
+  }
+
+  ul.desktop-menu {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    max-width: 700px;
+  }
+
+  ul.desktop-menu li a {
+    text-transform: capitalize;
+    font-size: 1rem;
+    color: #000;
+  }
+}
+
+@media (min-width: 48rem) {
+  .nav-bar {
+    padding: 1rem 2rem;
+    max-width: 69.375rem;
+    margin: 0 auto 2rem auto;
+  }
+
+  /* ==========
+  SEARCH BAR
+  ========== */
+  .search-bar__form {
+    width: 85%;
+  }
+
+  .search-bar__btn {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .search-bar__btn:hover {
+    font-size: 1.25rem;
+  }
+
+  /* ==========
+ TYPE ICONS
+ ========== */
+  .pokedex-page__type-icon-container {
+    max-width: 43.75rem;
+    margin: 0 auto 3rem auto;
+    display: flex;
+    align-items: center;
+    gap: 1.125rem 0;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .type-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 4.6875rem;
+    cursor: pointer;
+  }
+
+  .type-icon-container:hover .pokedex__type-icon {
+    filter: saturate(200%);
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  .type-icon-container p {
+    display: inline-block;
+    text-transform: capitalize;
+    margin-top: 0.3125rem;
+  }
+
+  .pokedex__type-icon {
+    width: 3.125rem;
+    height: 3.125rem;
+  }
+
+  /* ==========
+  TILE SECTION
+  ========== */
+  /* SECTION */
+  .tile-section {
+    width: 85%;
+    max-width: 69.375rem;
+  }
+}
