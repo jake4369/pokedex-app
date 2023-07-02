@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
 
 import PokemonTypeIcon from "./PokemonTypeIcon";
 
 import typesData from "./../data/data";
+
+import pokeballImg from "./../assets/pokeball-white.png";
 
 const PokedexModalCard = ({
   data,
@@ -57,8 +59,6 @@ const PokedexModalCard = ({
     document.body.style.overflowY = "auto";
   };
 
-  const handleBackgroundChange = () => {};
-
   return (
     <div className="pokedex-modal__card">
       <header
@@ -67,15 +67,24 @@ const PokedexModalCard = ({
           backgroundColor,
         }}
       >
-        <button className="close-modal-btn" onClick={handleCloseButtonClick}>
-          <FaArrowLeft className="close-modal-icon" />
-        </button>
+        <div className="pokedex-modal__button-container">
+          <button className="close-modal-btn" onClick={handleCloseButtonClick}>
+            <FaArrowLeft className="close-modal-icon" />
+          </button>
+          <button className="pokedex-modal__favorite-btn">
+            <FaRegHeart />
+          </button>
+        </div>
+
         <div className="pokedex-modal__name-container">
           <span className="pokedex-modal__name">{pokemonName}</span>{" "}
           <span className="pokedex-modal__id">{pokedexNumber}</span>
         </div>
         <img src={pokemonImage} alt="" className="pokedex-modal__main-img" />
         <div className="pokedex-modal__card-icons">{typeBadges}</div>
+
+        <img src={pokeballImg} alt="" className="pokedex-modal__pokeball-img" />
+        <img src={images[type]} alt="" className="pokedex-modal__type-img" />
       </header>
     </div>
   );
