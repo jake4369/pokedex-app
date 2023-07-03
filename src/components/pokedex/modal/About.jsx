@@ -42,7 +42,9 @@ const About = ({ selectedPokemon, speciesInfo }) => {
   };
 
   const formatEggGroups = (eggGroups) => {
-    return eggGroups ? eggGroups.map((group) => group.name).join(", ") : "None";
+    return eggGroups
+      ? eggGroups.map((group) => group.name.replace("-", " ")).join(", ")
+      : "None";
   };
 
   const description = getDescription();
