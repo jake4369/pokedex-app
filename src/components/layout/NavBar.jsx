@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { GrClose } from "react-icons/gr";
 
-import homeImg from "./../assets/menuIcons/pokeball.png";
-import pokedexImg from "./../assets/menuIcons/pikachu.png";
-import movesImg from "./../assets/menuIcons/fist.png";
-import abilitiesImg from "./../assets/menuIcons/tornado.png";
-import itemsImg from "./../assets/menuIcons/candy.png";
-import typechartImg from "./../assets/menuIcons/flash.png";
-import locationsImg from "./../assets/menuIcons/map.png";
+import homeImg from "./../../assets/menuIcons/pokeball.png";
+import pokedexImg from "./../../assets/menuIcons/pikachu.png";
+import movesImg from "./../../assets/menuIcons/fist.png";
+import abilitiesImg from "./../../assets/menuIcons/tornado.png";
+import itemsImg from "./../../assets/menuIcons/candy.png";
+import typechartImg from "./../../assets/menuIcons/flash.png";
+import locationsImg from "./../../assets/menuIcons/map.png";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);

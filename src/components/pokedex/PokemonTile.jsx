@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import PokemonTypeIcon from "./PokemonTypeIcon";
+import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
-import typesData from "./../data/data";
+import typesData from "../../data/data";
 
 const PokemonTile = ({ data, getSinglePokemonData }) => {
   const types = [...data.types].map((obj) => obj.type.name).sort();

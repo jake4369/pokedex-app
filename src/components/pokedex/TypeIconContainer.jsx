@@ -1,6 +1,6 @@
-import PokemonTypeIcon from "../components/PokemonTypeIcon";
+import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
-import typesData from "./../data/data";
+import typesData from "./../../data/data";
 
 const TypeIconContainer = ({ setSelectedType, setPokemonName }) => {
   const typeIcons = typesData.types.map((type) => {

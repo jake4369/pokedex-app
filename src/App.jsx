@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import NavBar from "./components/NavBar";
+import NavBar from "./components/layout/NavBar";
 import Homepage from "./pages/Homepage";
 import Pokedex from "./pages/Pokedex";
 

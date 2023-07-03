@@ -1,4 +1,4 @@
-import typesData from "./../data/data";
+import typesData from "./../../data/data";
 
 const PokemonTypeIcon = ({
   classname,

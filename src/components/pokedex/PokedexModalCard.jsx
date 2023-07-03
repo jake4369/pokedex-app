@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
 
-import PokemonTypeIcon from "./PokemonTypeIcon";
+import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
-import typesData from "./../data/data";
+import typesData from "./../../data/data";
 
-import pokeballImg from "./../assets/pokeball-white.png";
+import pokeballImg from "./../../assets/pokeball-white.png";
 
 const PokedexModalCard = ({
   data,

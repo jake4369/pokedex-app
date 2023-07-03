@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import LoadingSpinner from "./../components/LoadingSpinner";
-import SearchBar from "./../components/SearchBar";
-import TypeIconContainer from "../components/TypeIconContainer";
-import TileSection from "./../components/TileSection";
-import PokedexModal from "../components/PokedexModal";
+import LoadingSpinner from "./../components/shared/LoadingSpinner";
+import SearchBar from "./../components/pokedex/SearchBar";
+import TypeIconContainer from "./../components/pokedex/TypeIconContainer";
+import TileSection from "./../components/pokedex/TileSection";
+import PokedexModal from "./../components/pokedex/PokedexModal";
 
 const Pokedex = () => {
   const [urls, setUrls] = useState([]);
