@@ -9,11 +9,23 @@ const Modal = ({
   setSelectedPokemon,
 }) => {
   useEffect(() => {
+    const mainElement = document.querySelector("main");
+
     if (pokedexModalOpen) {
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+      mainElement.style.overflow = "hidden";
     } else {
+      document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
+      mainElement.style.overflow = "auto";
     }
+
+    return () => {
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+      mainElement.style.overflow = "auto";
+    };
   }, [pokedexModalOpen]);
 
   const handleCloseModal = (event) => {
