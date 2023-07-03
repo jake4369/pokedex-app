@@ -1,24 +1,18 @@
 import { useEffect } from "react";
-import PokedexModalCard from "./PokedexModalCard";
+import Card from "./Card";
 
-const PokedexModal = ({
+const Modal = ({
   data,
   pokedexModalOpen,
+  selectedPokemon,
   setPokemonModalOpen,
   setSelectedPokemon,
 }) => {
   useEffect(() => {
     if (pokedexModalOpen) {
-      document.body.style.overflowY = "hidden";
+      document.body.style.overflow = "hidden";
     } else {
-      const timeoutId = setTimeout(() => {
-        document.body.style.overflowY = "auto";
-      }, 300);
-
-      return () => {
-        clearTimeout(timeoutId);
-        document.body.style.overflowY = "auto"; // Reset body overflow to "auto"
-      };
+      document.body.style.overflow = "auto";
     }
   }, [pokedexModalOpen]);
 
@@ -34,13 +28,14 @@ const PokedexModal = ({
 
   return (
     <div className="pokedex-modal" onClick={handleCloseModal}>
-      <PokedexModalCard
+      <Card
         data={data}
         setPokemonModalOpen={setPokemonModalOpen}
+        selectedPokemon={selectedPokemon}
         setSelectedPokemon={setSelectedPokemon}
       />
     </div>
   );
 };
 
-export default PokedexModal;
+export default Modal;

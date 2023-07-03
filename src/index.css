@@ -6,7 +6,6 @@
 
 html {
   font-size: 16px;
-  overflow-x: hidden;
 }
 
 body {
@@ -14,8 +13,8 @@ body {
   overflow-x: hidden;
 }
 
-main {
-  overflow-x: hidden;
+.modal-open {
+  overflow: hidden;
 }
 
 /* ==========
@@ -419,8 +418,10 @@ a {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.8);
-  z-index: 2;
+  z-index: 100;
 }
+
+/* MODAL CARD */
 
 .pokedex-modal__card {
   background: #fff;
@@ -429,12 +430,13 @@ a {
   max-width: 21.875rem;
   border-radius: 0.625rem;
   z-index: 3;
+  height: 600px;
+  overflow-y: auto;
 }
 
 .pokedex-modal__card-header {
   position: relative;
   border-radius: 0.625rem 0.625rem 0 0;
-  margin-bottom: 1rem;
   background-size: 12.5rem;
   background-repeat: no-repeat;
   background-position: bottom -2.5rem right -3.125rem;
@@ -531,6 +533,63 @@ a {
 .pokedex-modal__card-type-icon:hover {
   filter: saturate(200%);
   transform: scale(1.1);
+}
+
+/* MODAL CARD INFO CONTAINER */
+.model-card__info-container {
+  background: #fff;
+  border-radius: 0.625rem;
+  padding: 1rem;
+}
+
+.model-card__info-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.model-card__info-tab-btn {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-transform: capitalize;
+  font-family: inherit;
+  font-size: 1.125rem;
+  opacity: 0.4;
+}
+
+.model-card__info-tab-btn.active {
+  opacity: 1;
+}
+
+/* ABOUT SECTION */
+.modal-card__about-description {
+  font-size: 15px;
+  margin-bottom: 1rem;
+  opacity: 0.4;
+}
+
+ul.modal-card__about-main-info {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+ul.modal-card__about-main-info li {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+ul.modal-card__about-main-info li span.title {
+  width: 3.5rem;
+  margin-right: 2.5rem;
+  opacity: 0.4;
 }
 
 /* ===========

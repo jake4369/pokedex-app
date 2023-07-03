@@ -4,7 +4,7 @@ import LoadingSpinner from "./../components/shared/LoadingSpinner";
 import SearchBar from "./../components/pokedex/SearchBar";
 import TypeIconContainer from "./../components/pokedex/TypeIconContainer";
 import TileSection from "./../components/pokedex/TileSection";
-import PokedexModal from "./../components/pokedex/PokedexModal";
+import Modal from "../components/pokedex/modal/Modal";
 
 const Pokedex = () => {
   const [urls, setUrls] = useState([]);
@@ -71,18 +71,6 @@ const Pokedex = () => {
     }
   }, [urls, pokemonName, selectedType]);
 
-  // const galarPokemon = pokemonData.filter((pokemon) =>
-  //   pokemon.name.includes("galar")
-  // );
-
-  // const hisuiPokemon = pokemonData.filter((pokemon) =>
-  //   pokemon.name.includes("hisui")
-  // );
-
-  // const gmaxPokemon = pokemonData.filter((pokemon) =>
-  //   pokemon.name.includes("gmax")
-  // );
-
   const getSinglePokemonData = (e, id) => {
     const typeIconContainer = e.target.closest(".tile__type-icon-container");
     const typeIcon = e.target.closest(".type-icon");
@@ -95,8 +83,6 @@ const Pokedex = () => {
       setPokemonModalOpen(true);
     }
   };
-
-  console.log(selectedPokemon);
 
   return (
     <div className="pokedex-page">
@@ -121,10 +107,11 @@ const Pokedex = () => {
       )}
 
       {selectedPokemon !== null && (
-        <PokedexModal
+        <Modal
           data={selectedPokemon}
           pokedexModalOpen={pokedexModalOpen}
           setPokemonModalOpen={setPokemonModalOpen}
+          selectedPokemon={selectedPokemon}
           setSelectedPokemon={setSelectedPokemon}
         />
       )}
