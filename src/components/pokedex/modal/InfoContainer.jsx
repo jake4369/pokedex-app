@@ -6,7 +6,7 @@ const InfoContainer = ({ data, selectedPokemon }) => {
   const [speciesInfo, setSpeciesInfo] = useState(null);
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon-species/${selectedPokemon.id}`)
+    fetch(selectedPokemon.species.url)
       .then((res) => res.json())
       .then((data) => setSpeciesInfo(data))
       .catch((error) => console.log(error));

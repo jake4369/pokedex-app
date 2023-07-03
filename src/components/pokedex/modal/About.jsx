@@ -1,6 +1,5 @@
-import React from "react";
-
 const About = ({ selectedPokemon, speciesInfo }) => {
+  console.log(speciesInfo);
   const getDescription = () => {
     if (speciesInfo !== null) {
       const entry = speciesInfo.flavor_text_entries.find(
