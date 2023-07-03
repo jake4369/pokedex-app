@@ -16,15 +16,20 @@ const Modal = ({
       document.body.style.overflow = "hidden";
       mainElement.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
-      mainElement.style.overflow = "auto";
+      document.documentElement.style.overflowY = "auto";
+      document.body.style.overflowY = "auto";
+      mainElement.style.overflowY = "auto";
+      document.documentElement.style.overflowX = "hidden";
+      document.body.style.overflowX = "hidden";
+      mainElement.style.overflowX = "hidden";
     }
 
     return () => {
-      document.documentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
-      mainElement.style.overflow = "auto";
+      document.documentElement.style.overflowY = "auto";
+      document.body.style.overflowX = "hidden";
+      mainElement.style.overflowY = "auto";
+      document.documentElement.style.overflowX = "hidden";
+      mainElement.style.overflowX = "hidden";
     };
   }, [pokedexModalOpen]);
 
