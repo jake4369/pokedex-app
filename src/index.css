@@ -540,7 +540,7 @@ a {
 .model-card__info-container {
   background: #fff;
   border-radius: 0.625rem;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .model-card__info-tabs {
@@ -567,7 +567,7 @@ a {
 
 /* ABOUT SECTION */
 .modal-card__about-description {
-  font-size: 15px;
+  font-size: 0.9375rem;
   margin-bottom: 1rem;
   opacity: 0.4;
 }
@@ -576,7 +576,7 @@ ul.modal-card__about-main-info {
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.7rem;
   margin-bottom: 1rem;
 }
 
@@ -588,7 +588,7 @@ ul.modal-card__about-main-info li {
 }
 
 ul.modal-card__about-main-info li span.title {
-  width: 3.5rem;
+  width: 86px;
   margin-right: 2.5rem;
   opacity: 0.4;
 }
