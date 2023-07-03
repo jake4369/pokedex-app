@@ -6,6 +6,7 @@
 
 html {
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -13,8 +14,8 @@ body {
   overflow-x: hidden;
 }
 
-.modal-open {
-  overflow: hidden;
+main {
+  overflow-x: hidden;
 }
 
 /* ==========
