@@ -28,47 +28,67 @@ const Pokedex = () => {
 
   useEffect(() => {
     setLoading(true);
-    const fetchData = () => {
-      const fetchedData = [];
+    const fetchedData = [];
+    const fetchErrors = [];
 
-      const fetchPromises = urls.map((url) =>
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => fetchedData.push(data))
-          .catch((error) =>
-            console.log(`Error fetching data for ${url}:`, error)
-          )
-      );
+    const fetchWithRetry = (url, retryCount = 0) => {
+      const maxRetries = 3;
+      const delayBetweenRetries = 1000;
 
-      Promise.all(fetchPromises)
-        .then(() => {
-          const sortedData = [...fetchedData].sort((a, b) => a.id - b.id);
+      if (retryCount > maxRetries) {
+        fetchErrors.push(`Exceeded maximum number of retries for ${url}`);
+        return;
+      }
 
-          const filteredByName = sortedData.filter((pokemon) =>
-            pokemon.name.includes(pokemonName)
-          );
-
-          if (pokemonName !== "" && selectedType === "") {
-            setPokemonData(filteredByName);
-          } else if (selectedType !== "" && pokemonName === "") {
-            const filteredByType = sortedData.filter((obj) => {
-              return (
-                obj.types[0].type.name === selectedType ||
-                (obj.types[1] && obj.types[1].type.name === selectedType)
-              );
-            });
-            setPokemonData(filteredByType);
-          } else {
-            setPokemonData(sortedData);
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
           }
-          setLoading(false);
+          return response.json();
         })
-        .catch((error) => console.log("Error while fetching data:", error));
+        .then((data) => {
+          fetchedData.push(data);
+        })
+        .catch((error) => {
+          console.log(`Error fetching data for ${url}:`, error);
+          setTimeout(
+            () => fetchWithRetry(url, retryCount + 1),
+            delayBetweenRetries
+          );
+        })
+        .finally(() => {
+          if (fetchedData.length === urls.length) {
+            if (fetchErrors.length > 0) {
+              console.log("Errors occurred while fetching data:", fetchErrors);
+            }
+
+            const sortedData = [...fetchedData].sort((a, b) => a.id - b.id);
+
+            const filteredByName = sortedData.filter((pokemon) =>
+              pokemon.name.includes(pokemonName)
+            );
+
+            if (pokemonName !== "" && selectedType === "") {
+              setPokemonData(filteredByName);
+            } else if (selectedType !== "" && pokemonName === "") {
+              const filteredByType = sortedData.filter((obj) => {
+                return (
+                  obj.types[0].type.name === selectedType ||
+                  (obj.types[1] && obj.types[1].type.name === selectedType)
+                );
+              });
+              setPokemonData(filteredByType);
+            } else {
+              setPokemonData(sortedData);
+            }
+
+            setLoading(false);
+          }
+        });
     };
 
-    if (urls.length > 0) {
-      fetchData();
-    }
+    urls.forEach((url) => fetchWithRetry(url));
   }, [urls, pokemonName, selectedType]);
 
   const getSinglePokemonData = (e, id) => {
@@ -86,7 +106,7 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex-page">
-      {loading ? (
+      {loading && !pokemonData.length ? ( // Check if loading is true and no pokemonData is available
         <LoadingSpinner />
       ) : (
         <>
@@ -100,11 +120,15 @@ const Pokedex = () => {
             setSelectedType={setSelectedType}
           />
 
-          <TileSection
-            loading={loading}
-            pokemonData={pokemonData}
-            getSinglePokemonData={getSinglePokemonData}
-          />
+          {loading ? ( // Render the loading spinner only for the TileSection component
+            <LoadingSpinner />
+          ) : (
+            <TileSection
+              loading={loading}
+              pokemonData={pokemonData}
+              getSinglePokemonData={getSinglePokemonData}
+            />
+          )}
 
           {selectedPokemon !== null && (
             <Modal
