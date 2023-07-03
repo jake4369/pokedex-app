@@ -28,7 +28,7 @@ const About = ({ selectedPokemon, speciesInfo }) => {
   };
 
   const formatTypes = (types) => {
-    return types ? types.map((type) => type.type.name).join(" ") : "None";
+    return types ? types.map((type) => type.type.name).join(", ") : "None";
   };
 
   const formatAbilities = (abilities) => {
@@ -42,7 +42,7 @@ const About = ({ selectedPokemon, speciesInfo }) => {
   };
 
   const formatEggGroups = (eggGroups) => {
-    return eggGroups ? eggGroups.map((group) => group.name).join(" ") : "None";
+    return eggGroups ? eggGroups.map((group) => group.name).join(", ") : "None";
   };
 
   const description = getDescription();
