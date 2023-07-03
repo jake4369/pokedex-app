@@ -86,34 +86,36 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex-page">
-      <SearchBar
-        setPokemonName={setPokemonName}
-        setSelectedType={setSelectedType}
-      />
-
-      <TypeIconContainer
-        setPokemonName={setPokemonName}
-        setSelectedType={setSelectedType}
-      />
-
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <TileSection
-          loading={loading}
-          pokemonData={pokemonData}
-          getSinglePokemonData={getSinglePokemonData}
-        />
-      )}
+        <>
+          <SearchBar
+            setPokemonName={setPokemonName}
+            setSelectedType={setSelectedType}
+          />
 
-      {selectedPokemon !== null && (
-        <Modal
-          data={selectedPokemon}
-          pokedexModalOpen={pokedexModalOpen}
-          setPokemonModalOpen={setPokemonModalOpen}
-          selectedPokemon={selectedPokemon}
-          setSelectedPokemon={setSelectedPokemon}
-        />
+          <TypeIconContainer
+            setPokemonName={setPokemonName}
+            setSelectedType={setSelectedType}
+          />
+
+          <TileSection
+            loading={loading}
+            pokemonData={pokemonData}
+            getSinglePokemonData={getSinglePokemonData}
+          />
+
+          {selectedPokemon !== null && (
+            <Modal
+              data={selectedPokemon}
+              pokedexModalOpen={pokedexModalOpen}
+              setPokemonModalOpen={setPokemonModalOpen}
+              selectedPokemon={selectedPokemon}
+              setSelectedPokemon={setSelectedPokemon}
+            />
+          )}
+        </>
       )}
     </div>
   );
