@@ -124,7 +124,7 @@ const Evolutions = ({
             pokemon?.sprites.other["official-artwork"].front_default || ""; // Provide a fallback image URL if it's missing
           return {
             stage: name,
-            name: pokemon,
+            name: pokemon.name, // Extract the name property
             img: img,
           };
         });
