@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import About from "./About";
+import BaseStats from "./BaseStats";
 
 const InfoContainer = ({ data, selectedPokemon }) => {
   const [speciesInfo, setSpeciesInfo] = useState(null);
@@ -49,6 +50,8 @@ const InfoContainer = ({ data, selectedPokemon }) => {
           speciesInfo={speciesInfo}
           speciesInfoLoaded={speciesInfoLoaded}
         />
+      ) : activeTab === "stats" ? (
+        <BaseStats data={data} />
       ) : null}
     </div>
   );

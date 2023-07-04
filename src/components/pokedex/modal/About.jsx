@@ -74,47 +74,47 @@ const About = ({ selectedPokemon, speciesInfo, speciesInfoLoaded }) => {
 
           <ul className="modal-card__about-main-info">
             <li>
-              <span className="title">Species</span>
-              <span className="entries">{speciesType}</span>
+              <span className="stat-title">Species</span>
+              <span className="stat-entry">{speciesType}</span>
             </li>
 
             <li>
-              <span className="title">
+              <span className="stat-title">
                 {types.length > 1 ? "Types" : "Type"}
               </span>
-              <span className="entries">{formatTypes(types)}</span>
+              <span className="stat-entry">{formatTypes(types)}</span>
             </li>
 
             <li>
-              <span className="title">Habitat</span>
-              <span className="entries">{formatHabitat(habitat)}</span>
+              <span className="stat-title">Habitat</span>
+              <span className="stat-entry">{formatHabitat(habitat)}</span>
             </li>
 
             <li>
-              <span className="title">Height</span>
-              <span className="entries">{height}</span>
+              <span className="stat-title">Height</span>
+              <span className="stat-entry">{height}</span>
             </li>
 
             <li>
-              <span className="title">Weight</span>
-              <span className="entries">{weight}</span>
+              <span className="stat-title">Weight</span>
+              <span className="stat-entry">{weight}</span>
             </li>
 
             <li>
-              <span className="title">Color</span>
-              <span className="entries">{color}</span>
+              <span className="stat-title">Color</span>
+              <span className="stat-entry">{color}</span>
             </li>
 
             <li>
-              <span className="title">Abilities</span>
-              <span className="entries">{formatAbilities(abilities)}</span>
+              <span className="stat-title">Abilities</span>
+              <span className="stat-entry">{formatAbilities(abilities)}</span>
             </li>
 
             <li>
-              <span className="title">
+              <span className="stat-title">
                 {eggGroups.length > 1 ? "Egg groups" : "Egg group"}
               </span>
-              <span className="entries">{formatEggGroups(eggGroups)}</span>
+              <span className="stat-entry">{formatEggGroups(eggGroups)}</span>
             </li>
           </ul>
         </div>
