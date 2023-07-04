@@ -357,11 +357,6 @@ a {
   cursor: pointer;
 }
 
-.tile:hover {
-  transform: scale(1.1);
-  box-shadow: 0.3125rem 0.625rem 0.3125rem rgba(0, 0, 0, 0.4);
-}
-
 .tile-img {
   width: 100%;
   max-width: 12.5rem;
@@ -704,8 +699,8 @@ ul.modal-card__about-main-info li span.title {
   }
 
   /* ==========
- TYPE ICONS
- ========== */
+  TYPE ICONS
+  ========== */
   .pokedex-page__type-icon-container {
     max-width: 43.75rem;
     margin: 0 auto 3rem auto;
@@ -749,5 +744,10 @@ ul.modal-card__about-main-info li span.title {
   .tile-section {
     width: 85%;
     max-width: 69.375rem;
+  }
+
+  .tile:hover {
+    transform: scale(1.1);
+    box-shadow: 0.3125rem 0.625rem 0.3125rem rgba(0, 0, 0, 0.4);
   }
 }
