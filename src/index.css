@@ -542,6 +542,7 @@ a {
   background: #fff;
   border-radius: 0.625rem;
   padding: 1.5rem;
+  min-height: 24.0625rem;
 }
 
 .model-card__info-tabs {
@@ -564,6 +565,36 @@ a {
 
 .model-card__info-tab-btn.active {
   opacity: 1;
+}
+
+.fade-in-fwd {
+  -webkit-animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in-fwd 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+    transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-fwd {
+  0% {
+    -webkit-transform: translateZ(-80px);
+    transform: translateZ(-80px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 1;
+  }
 }
 
 /* ABOUT SECTION */
@@ -589,9 +620,22 @@ ul.modal-card__about-main-info li {
 }
 
 ul.modal-card__about-main-info li span.title {
-  width: 86px;
+  min-width: 5.375rem;
   margin-right: 2.5rem;
+}
+
+ul.modal-card__about-main-info li span.entries {
   opacity: 0.4;
+}
+
+span.loading-data {
+  display: flex;
+  align-items: center;
+}
+
+.rotomdex-img {
+  width: 2.5rem;
+  margin-right: 0.5rem;
 }
 
 /* ===========

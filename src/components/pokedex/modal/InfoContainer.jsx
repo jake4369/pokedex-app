@@ -4,11 +4,16 @@ import About from "./About";
 
 const InfoContainer = ({ data, selectedPokemon }) => {
   const [speciesInfo, setSpeciesInfo] = useState(null);
+  const [speciesInfoLoaded, setSpeciesInfoLoaded] = useState(false);
 
   useEffect(() => {
+    setSpeciesInfoLoaded(false);
     fetch(selectedPokemon.species.url)
       .then((res) => res.json())
-      .then((data) => setSpeciesInfo(data))
+      .then((data) => {
+        setSpeciesInfo(data);
+        setSpeciesInfoLoaded(true);
+      })
       .catch((error) => console.log(error));
   }, [selectedPokemon]);
 
@@ -42,6 +47,7 @@ const InfoContainer = ({ data, selectedPokemon }) => {
           data={data}
           selectedPokemon={selectedPokemon}
           speciesInfo={speciesInfo}
+          speciesInfoLoaded={speciesInfoLoaded}
         />
       ) : null}
     </div>

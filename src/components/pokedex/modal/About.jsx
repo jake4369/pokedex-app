@@ -1,4 +1,6 @@
-const About = ({ selectedPokemon, speciesInfo }) => {
+import rotomdexImg from "./../../../assets/rotomdex.png";
+
+const About = ({ selectedPokemon, speciesInfo, speciesInfoLoaded }) => {
   const getDescription = () => {
     if (speciesInfo !== null) {
       const entry = speciesInfo.flavor_text_entries.find(
@@ -61,51 +63,67 @@ const About = ({ selectedPokemon, speciesInfo }) => {
 
   return (
     <div className="modal-card__about">
-      <p className="modal-card__about-description">{description}</p>
+      {speciesInfoLoaded ? (
+        <div
+          style={{
+            opacity: 0,
+          }}
+          className="fade-in-fwd"
+        >
+          <p className="modal-card__about-description">{description}</p>
 
-      <ul className="modal-card__about-main-info">
-        <li>
-          <span className="title">Species</span>
-          <span className="entries">{speciesType}</span>
-        </li>
+          <ul className="modal-card__about-main-info">
+            <li>
+              <span className="title">Species</span>
+              <span className="entries">{speciesType}</span>
+            </li>
 
-        <li>
-          <span className="title">{types.length > 1 ? "Types" : "Type"}</span>
-          <span className="entries">{formatTypes(types)}</span>
-        </li>
+            <li>
+              <span className="title">
+                {types.length > 1 ? "Types" : "Type"}
+              </span>
+              <span className="entries">{formatTypes(types)}</span>
+            </li>
 
-        <li>
-          <span className="title">Habitat</span>
-          <span className="entries">{formatHabitat(habitat)}</span>
-        </li>
+            <li>
+              <span className="title">Habitat</span>
+              <span className="entries">{formatHabitat(habitat)}</span>
+            </li>
 
-        <li>
-          <span className="title">Height</span>
-          <span className="entries">{height}</span>
-        </li>
+            <li>
+              <span className="title">Height</span>
+              <span className="entries">{height}</span>
+            </li>
 
-        <li>
-          <span className="title">Weight</span>
-          <span className="entries">{weight}</span>
-        </li>
+            <li>
+              <span className="title">Weight</span>
+              <span className="entries">{weight}</span>
+            </li>
 
-        <li>
-          <span className="title">Color</span>
-          <span className="entries">{color}</span>
-        </li>
+            <li>
+              <span className="title">Color</span>
+              <span className="entries">{color}</span>
+            </li>
 
-        <li>
-          <span className="title">Abilities</span>
-          <span className="entries">{formatAbilities(abilities)}</span>
-        </li>
+            <li>
+              <span className="title">Abilities</span>
+              <span className="entries">{formatAbilities(abilities)}</span>
+            </li>
 
-        <li>
-          <span className="title">
-            {eggGroups.length > 1 ? "Egg groups" : "Egg group"}
-          </span>
-          <span className="entries">{formatEggGroups(eggGroups)}</span>
-        </li>
-      </ul>
+            <li>
+              <span className="title">
+                {eggGroups.length > 1 ? "Egg groups" : "Egg group"}
+              </span>
+              <span className="entries">{formatEggGroups(eggGroups)}</span>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <span className="loading-data">
+          <img src={rotomdexImg} alt="Rotomdex" className="rotomdex-img" />{" "}
+          <p>Loading data...</p>
+        </span>
+      )}
     </div>
   );
 };
