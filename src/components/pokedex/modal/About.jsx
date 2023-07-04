@@ -1,4 +1,4 @@
-import rotomdexImg from "./../../../assets/rotomdex.png";
+import LoadingData from "./LoadingData";
 
 const About = ({ selectedPokemon, speciesInfo, speciesInfoLoaded }) => {
   const getDescription = () => {
@@ -119,10 +119,7 @@ const About = ({ selectedPokemon, speciesInfo, speciesInfoLoaded }) => {
           </ul>
         </div>
       ) : (
-        <span className="loading-data">
-          <img src={rotomdexImg} alt="Rotomdex" className="rotomdex-img" />{" "}
-          <p>Loading data...</p>
-        </span>
+        <LoadingData />
       )}
     </div>
   );

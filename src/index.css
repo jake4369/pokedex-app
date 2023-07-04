@@ -628,7 +628,7 @@ ul.modal-card__about-main-info li span.entries {
   opacity: 0.4;
 }
 
-span.loading-data {
+.loading-data {
   display: flex;
   align-items: center;
   justify-content: center;
