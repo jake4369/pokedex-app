@@ -18,6 +18,19 @@ main {
   overflow-x: hidden;
 }
 
+/* REMOVE FOCUS */
+input,
+button,
+.tile {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+  -webkit-touch-callout: none; /* Disable callout on iOS */
+  -webkit-user-select: none; /* Disable selection on iOS */
+  -moz-user-select: none; /* Disable selection on Firefox */
+  -ms-user-select: none; /* Disable selection on IE/Edge */
+  user-select: none;
+}
+
 /* ==========
  NAVBAR
  ========== */
