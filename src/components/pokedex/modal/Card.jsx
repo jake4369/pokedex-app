@@ -7,7 +7,7 @@ import typesData from "./../../../data/data";
 
 const Card = ({
   setPokemonModalOpen,
-  allPokemonData,
+  initialPokemonData,
   selectedPokemon,
   setSelectedPokemon,
 }) => {
@@ -37,7 +37,7 @@ const Card = ({
       />
 
       <InfoContainer
-        allPokemonData={allPokemonData}
+        initialPokemonData={initialPokemonData}
         selectedPokemon={selectedPokemon}
         setSelectedPokemon={setSelectedPokemon}
         setType={setType}

@@ -5,10 +5,10 @@ import BaseStats from "./BaseStats";
 import Evolutions from "./Evolutions";
 
 const InfoContainer = ({
-  allPokemonData,
+  initialPokemonData,
   selectedPokemon,
   setSelectedPokemon,
-  setType
+  setType,
 }) => {
   const [speciesInfo, setSpeciesInfo] = useState(null);
   const [speciesInfoLoaded, setSpeciesInfoLoaded] = useState(false);
@@ -59,7 +59,7 @@ const InfoContainer = ({
         <BaseStats selectedPokemon={selectedPokemon} />
       ) : activeTab === "evolutions" ? (
         <Evolutions
-          allPokemonData={allPokemonData}
+          initialPokemonData={initialPokemonData}
           speciesInfo={speciesInfo}
           selectedPokemon={selectedPokemon}
           setSelectedPokemon={setSelectedPokemon}

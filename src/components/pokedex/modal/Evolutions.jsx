@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import LoadingData from "./LoadingData";
 
 const Evolutions = ({
-  allPokemonData,
+  initialPokemonData,
   speciesInfo,
   setSelectedPokemon,
   setType,
@@ -20,7 +20,19 @@ const Evolutions = ({
         const response = await fetch(selectedChainUrl);
         const evolutionChainData = await response.json();
         const evolutionNames = extractEvolutionNames(evolutionChainData.chain);
-        setEvolutionChainNames(evolutionNames);
+        if (speciesInfo.name === "eevee") {
+          setEvolutionChainNames([
+            "vaporeon",
+            "jolteon",
+            "flareon",
+            "espeon",
+            "umbreon",
+            "leafeon",
+            "glaceon",
+          ]);
+        } else {
+          setEvolutionChainNames(evolutionNames);
+        }
         setIsLoading(false);
       } catch (error) {
         setError(error);
@@ -29,7 +41,9 @@ const Evolutions = ({
     };
 
     fetchEvolutionChain();
-  }, [selectedChainUrl]);
+  }, [selectedChainUrl, evolutionDetails, speciesInfo, evolutionChainNames]);
+
+  console.log(evolutionChainNames);
 
   useEffect(() => {
     if (evolutionChainNames.length > 0) {
@@ -52,8 +66,6 @@ const Evolutions = ({
     }
   }, [speciesInfo]);
 
-  console.log(evolutionDetails);
-
   const extractEvolutionNames = (chain) => {
     const evolutionNames = [];
 
@@ -73,21 +85,21 @@ const Evolutions = ({
 
   const basicStagePokemon =
     evolutionChainNames.length > 0
-      ? allPokemonData.find(
+      ? initialPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[0]
         )
       : null;
 
   const stageOnePokemon =
     evolutionChainNames.length > 1
-      ? allPokemonData.find(
+      ? initialPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[1]
         )
       : null;
 
   const stageTwoPokemon =
     evolutionChainNames.length > 2
-      ? allPokemonData.find(
+      ? initialPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[2]
         )
       : null;
@@ -97,23 +109,85 @@ const Evolutions = ({
       return <li className="no-evolution-message">No evolutions</li>;
     }
 
-    const stages = [
-      {
-        stage: basicStagePokemon,
-        name: "Basic",
-        img: basicStagePokemon?.sprites.other["official-artwork"].front_default,
-      },
-      {
-        stage: stageOnePokemon,
-        name: "Stage 1",
-        img: stageOnePokemon?.sprites.other["official-artwork"].front_default,
-      },
-      {
-        stage: stageTwoPokemon,
-        name: "Stage 2",
-        img: stageTwoPokemon?.sprites.other["official-artwork"].front_default,
-      },
-    ];
+    if (speciesInfo.name === "eevee") {
+      if (evolutionChainNames.length === 1) {
+        return <li className="no-evolution-message">No evolutions</li>;
+      }
+
+      if (speciesInfo.name === "eevee") {
+        const stages = evolutionChainNames.map((name) => {
+          const pokemon = initialPokemonData.find(
+            (pokemon) => pokemon.name === name
+          );
+
+          const img =
+            pokemon?.sprites.other["official-artwork"].front_default || ""; // Provide a fallback image URL if it's missing
+          return {
+            stage: name,
+            name: pokemon,
+            img: img,
+          };
+        });
+
+        return stages.map(({ stage, name, img }) => (
+          <li key={name} className="evolution-chain__pokemon-container">
+            {stage && (
+              <>
+                <img
+                  src={img}
+                  alt={name}
+                  className="evolution-chain__pokemon-img"
+                />
+                <span className="evolution-chain__pokemon-name">
+                  {stage.name}
+                </span>
+                <span className="evolution-chain__pokemon-stage">{name}</span>
+              </>
+            )}
+          </li>
+        ));
+      }
+    }
+
+    let stages;
+
+    if (
+      speciesInfo.name === "vaporeon" ||
+      speciesInfo.name === "jolteon" ||
+      speciesInfo.name === "flareon" ||
+      speciesInfo.name === "espeon" ||
+      speciesInfo.name === "umbreon" ||
+      speciesInfo.name === "leafeon" ||
+      speciesInfo.name === "glaceon"
+    ) {
+      stages = [
+        {
+          stage: basicStagePokemon,
+          name: "Basic",
+          img: basicStagePokemon?.sprites.other["official-artwork"]
+            .front_default,
+        },
+      ];
+    } else {
+      stages = [
+        {
+          stage: basicStagePokemon,
+          name: "Basic",
+          img: basicStagePokemon?.sprites.other["official-artwork"]
+            .front_default,
+        },
+        {
+          stage: stageOnePokemon,
+          name: "Stage 1",
+          img: stageOnePokemon?.sprites.other["official-artwork"].front_default,
+        },
+        {
+          stage: stageTwoPokemon,
+          name: "Stage 2",
+          img: stageTwoPokemon?.sprites.other["official-artwork"].front_default,
+        },
+      ];
+    }
 
     const handleClick = (stage) => {
       const types = [...stage.types].map((obj) => obj.type.name).sort();
@@ -135,6 +209,7 @@ const Evolutions = ({
               className="evolution-chain__pokemon-img"
             />
             <span className="evolution-chain__pokemon-name">{stage.name}</span>
+            <span className="evolution-chain__pokemon-stage">{name}</span>
           </>
         ) : null}
       </li>
@@ -149,7 +224,7 @@ const Evolutions = ({
     return <div>Error: {error.message}</div>;
   }
 
-  return <ul className="evolutions">{renderEvolutionChain()}</ul>;
+  return <ul className="evolutions fade-in-fwd">{renderEvolutionChain()}</ul>;
 };
 
 export default Evolutions;

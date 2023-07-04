@@ -8,6 +8,7 @@ import Modal from "../components/pokedex/modal/Modal";
 
 const Pokedex = () => {
   const [urls, setUrls] = useState([]);
+  const [initialPokemonData, setInitialPokemonData] = useState([]);
   const [allPokemonData, setAllPokemonData] = useState([]);
   const [pokemonName, setPokemonName] = useState("");
   const [loading, setLoading] = useState(true);
@@ -68,6 +69,8 @@ const Pokedex = () => {
             const filteredByName = sortedData.filter((pokemon) =>
               pokemon.name.includes(pokemonName)
             );
+
+            setInitialPokemonData(sortedData);
 
             if (pokemonName !== "" && selectedType === "") {
               setAllPokemonData(filteredByName);
@@ -134,7 +137,7 @@ const Pokedex = () => {
             <Modal
               pokedexModalOpen={pokedexModalOpen}
               setPokemonModalOpen={setPokemonModalOpen}
-              allPokemonData={allPokemonData}
+              initialPokemonData={initialPokemonData}
               selectedPokemon={selectedPokemon}
               setSelectedPokemon={setSelectedPokemon}
             />

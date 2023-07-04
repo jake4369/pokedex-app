@@ -753,6 +753,7 @@ li.base-stat-container {
   align-items: center;
   justify-content: space-between;
   gap: 2rem 0;
+  opacity: 0;
 }
 
 .evolution-chain__pokemon-container {
@@ -769,9 +770,17 @@ li.base-stat-container {
   margin-bottom: 0.5rem;
 }
 
-.evolution-chain__pokemon-name {
+.evolution-chain__pokemon-name,
+.evolution-chain__pokemon-stage {
   text-transform: capitalize;
   font-size: 1rem;
+}
+
+.evolution-chain__pokemon-name {
+  margin-bottom: 0.25rem;
+}
+
+.evolution-chain__pokemon-stage {
   opacity: 0.4;
 }
 
