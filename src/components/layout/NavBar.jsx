@@ -13,7 +13,8 @@ import locationsImg from "./../../assets/menuIcons/map.png";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMenuVisible, setMenuVisible] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+
   const links = [
     "/",
     "pokedex",
@@ -26,6 +27,12 @@ const NavBar = () => {
 
   const handleClick = () => {
     setMenuOpen((prevState) => !prevState);
+
+    if (menuOpen) {
+      setAnimationClass("slide-out-right");
+    } else {
+      setAnimationClass("slide-in-right");
+    }
   };
 
   useEffect(() => {
@@ -44,11 +51,9 @@ const NavBar = () => {
 
   useEffect(() => {
     if (menuOpen) {
-      setMenuVisible(true);
       document.body.style.overflowY = "hidden";
     } else {
       const timeoutId = setTimeout(() => {
-        setMenuVisible(false);
         document.body.style.overflowY = "auto";
       }, 300);
 
@@ -95,9 +100,7 @@ const NavBar = () => {
         <HiMenuAlt3 onClick={handleClick} className="nav-btn" />
       )}
       <ul
-        className={`mobile-menu ${
-          isMenuVisible ? "slide-in-right" : "slide-out-right"
-        }`}
+        className={`mobile-menu ${animationClass} ${menuOpen ? "visible" : ""}`}
       >
         {mobileLinks}
       </ul>

@@ -48,11 +48,17 @@ ul.mobile-menu {
   height: 100%;
   z-index: 1000;
   padding: 2rem;
-  transform: translateX(-1000px);
-  opacity: 0;
   background-image: url("./assets/menuIcons/ash.png");
   background-repeat: no-repeat;
   background-position: top right -5.625rem;
+  opacity: 0;
+  transform: translateX(-1000px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+ul.mobile-menu.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 ul.mobile-menu li a {
