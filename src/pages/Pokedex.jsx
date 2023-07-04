@@ -8,7 +8,7 @@ import Modal from "../components/pokedex/modal/Modal";
 
 const Pokedex = () => {
   const [urls, setUrls] = useState([]);
-  const [pokemonData, setPokemonData] = useState([]);
+  const [allPokemonData, setAllPokemonData] = useState([]);
   const [pokemonName, setPokemonName] = useState("");
   const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("");
@@ -70,7 +70,7 @@ const Pokedex = () => {
             );
 
             if (pokemonName !== "" && selectedType === "") {
-              setPokemonData(filteredByName);
+              setAllPokemonData(filteredByName);
             } else if (selectedType !== "" && pokemonName === "") {
               const filteredByType = sortedData.filter((obj) => {
                 return (
@@ -78,9 +78,9 @@ const Pokedex = () => {
                   (obj.types[1] && obj.types[1].type.name === selectedType)
                 );
               });
-              setPokemonData(filteredByType);
+              setAllPokemonData(filteredByType);
             } else {
-              setPokemonData(sortedData);
+              setAllPokemonData(sortedData);
             }
 
             setLoading(false);
@@ -106,7 +106,7 @@ const Pokedex = () => {
 
   return (
     <div className="pokedex-page">
-      {loading && !pokemonData.length ? ( // Check if loading is true and no pokemonData is available
+      {loading && !allPokemonData.length ? ( // Check if loading is true and no pokemonData is available
         <LoadingSpinner />
       ) : (
         <>
@@ -125,16 +125,16 @@ const Pokedex = () => {
           ) : (
             <TileSection
               loading={loading}
-              pokemonData={pokemonData}
+              allPokemonData={allPokemonData}
               getSinglePokemonData={getSinglePokemonData}
             />
           )}
 
           {selectedPokemon !== null && (
             <Modal
-              data={selectedPokemon}
               pokedexModalOpen={pokedexModalOpen}
               setPokemonModalOpen={setPokemonModalOpen}
+              allPokemonData={allPokemonData}
               selectedPokemon={selectedPokemon}
               setSelectedPokemon={setSelectedPokemon}
             />

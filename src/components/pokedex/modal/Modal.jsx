@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import Card from "./Card";
 
 const Modal = ({
-  data,
   pokedexModalOpen,
-  selectedPokemon,
   setPokemonModalOpen,
+  allPokemonData,
+  selectedPokemon,
   setSelectedPokemon,
 }) => {
   useEffect(() => {
@@ -46,7 +46,7 @@ const Modal = ({
   return (
     <div className="pokedex-modal" onClick={handleCloseModal}>
       <Card
-        data={data}
+        allPokemonData={allPokemonData}
         setPokemonModalOpen={setPokemonModalOpen}
         selectedPokemon={selectedPokemon}
         setSelectedPokemon={setSelectedPokemon}

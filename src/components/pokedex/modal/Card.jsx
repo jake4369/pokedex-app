@@ -6,15 +6,15 @@ import InfoContainer from "./InfoContainer";
 import typesData from "./../../../data/data";
 
 const Card = ({
-  data,
   setPokemonModalOpen,
+  allPokemonData,
   selectedPokemon,
   setSelectedPokemon,
 }) => {
   let types;
 
-  if (data !== null) {
-    types = [...data.types].map((obj) => obj.type.name).sort();
+  if (selectedPokemon !== null) {
+    types = [...selectedPokemon.types].map((obj) => obj.type.name).sort();
   }
 
   const [type, setType] = useState(types[0]);
@@ -28,7 +28,7 @@ const Card = ({
   return (
     <div className="pokedex-modal__card" style={{ backgroundColor }}>
       <CardHeader
-        data={data}
+        selectedPokemon={selectedPokemon}
         setPokemonModalOpen={setPokemonModalOpen}
         setSelectedPokemon={setSelectedPokemon}
         types={types}
@@ -36,7 +36,12 @@ const Card = ({
         setType={setType}
       />
 
-      <InfoContainer data={data} selectedPokemon={selectedPokemon} />
+      <InfoContainer
+        allPokemonData={allPokemonData}
+        selectedPokemon={selectedPokemon}
+        setSelectedPokemon={setSelectedPokemon}
+        setType={setType}
+      />
     </div>
   );
 };

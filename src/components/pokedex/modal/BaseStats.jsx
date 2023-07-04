@@ -7,14 +7,12 @@ const progressBarColors = {
   speed: "rgb(169, 117, 111)",
 };
 
-const BaseStats = ({ data }) => {
+const BaseStats = ({ selectedPokemon }) => {
   let statsData;
 
-  if (data !== null) {
-    statsData = data.stats;
+  if (selectedPokemon !== null) {
+    statsData = selectedPokemon.stats;
   }
-
-  console.log(statsData);
 
   const stats = statsData.map((stat) => {
     const baseStatPercentage = (stat.base_stat / 255) * 100; // Adjust the denominator based on your desired maximum value

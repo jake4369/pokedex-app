@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 
 import About from "./About";
 import BaseStats from "./BaseStats";
+import Evolutions from "./Evolutions";
 
-const InfoContainer = ({ data, selectedPokemon }) => {
+const InfoContainer = ({
+  allPokemonData,
+  selectedPokemon,
+  setSelectedPokemon,
+  setType
+}) => {
   const [speciesInfo, setSpeciesInfo] = useState(null);
   const [speciesInfoLoaded, setSpeciesInfoLoaded] = useState(false);
 
@@ -45,13 +51,20 @@ const InfoContainer = ({ data, selectedPokemon }) => {
 
       {activeTab === "about" ? (
         <About
-          data={data}
           selectedPokemon={selectedPokemon}
           speciesInfo={speciesInfo}
           speciesInfoLoaded={speciesInfoLoaded}
         />
       ) : activeTab === "stats" ? (
-        <BaseStats data={data} />
+        <BaseStats selectedPokemon={selectedPokemon} />
+      ) : activeTab === "evolutions" ? (
+        <Evolutions
+          allPokemonData={allPokemonData}
+          speciesInfo={speciesInfo}
+          selectedPokemon={selectedPokemon}
+          setSelectedPokemon={setSelectedPokemon}
+          setType={setType}
+        />
       ) : null}
     </div>
   );

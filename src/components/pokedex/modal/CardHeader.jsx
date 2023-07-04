@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { FaArrowLeft, FaRegHeart } from "react-icons/fa";
 
 import PokemonTypeIcon from "./../../shared/PokemonTypeIcon";
@@ -9,8 +7,8 @@ import typesData from "./../../../data/data";
 import pokeballImg from "./../../../assets/pokeball-white.png";
 
 const CardHeader = ({
-  data,
   setPokemonModalOpen,
+  selectedPokemon,
   setSelectedPokemon,
   types,
   type,
@@ -21,15 +19,16 @@ const CardHeader = ({
   let pokedexNumber;
   let pokemonName;
 
-  if (data !== null) {
-    pokemonImage = data.sprites.other["official-artwork"].front_default;
+  if (selectedPokemon !== null) {
+    pokemonImage =
+      selectedPokemon.sprites.other["official-artwork"].front_default;
     pokedexNumber =
-      data.id < 10
-        ? `#00${data.id}`
-        : data.id < 100
-        ? `#0${data.id}`
-        : `#${data.id}`;
-    pokemonName = data.name;
+      selectedPokemon.id < 10
+        ? `#00${selectedPokemon.id}`
+        : selectedPokemon.id < 100
+        ? `#0${selectedPokemon.id}`
+        : `#${selectedPokemon.id}`;
+    pokemonName = selectedPokemon.name;
   }
 
   const typeColor = typesData.typeColors.find((colorObj) =>
