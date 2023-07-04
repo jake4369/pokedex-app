@@ -218,7 +218,7 @@ a {
   padding: 1rem 1rem;
   background: none;
   border-radius: 2rem 0 0 2rem;
-  outline: none;
+  outline: 0 !important;
   border: none;
   background-color: rgb(246, 246, 246);
   color: #000;
@@ -235,7 +235,7 @@ a {
   padding: 1rem 0;
   border-radius: 0 2rem 2rem 0;
   border: none;
-  outline: none;
+  outline: 0 !important;
   cursor: pointer;
   height: 3.375rem;
   font-size: 1rem;
@@ -356,7 +356,7 @@ a {
   position: relative;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  outline: none;
+  outline: 0 !important;
 }
 
 .tile-img {
@@ -488,7 +488,7 @@ a {
 .pokedex-modal__favorite-btn {
   display: block;
   background: none;
-  outline: none;
+  outline: 0 !important;
   border: none;
   color: #fff;
   margin: 0 0 0.5rem 0;
@@ -557,7 +557,7 @@ a {
 .model-card__info-tab-btn {
   background: none;
   border: none;
-  outline: none;
+  outline: 0 !important;
   cursor: pointer;
   text-transform: capitalize;
   font-family: inherit;
