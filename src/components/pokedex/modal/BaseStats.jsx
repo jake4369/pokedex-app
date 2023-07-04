@@ -17,7 +17,7 @@ const BaseStats = ({ data }) => {
   console.log(statsData);
 
   const stats = statsData.map((stat) => {
-    const baseStatPercentage = (stat.base_stat / 200) * 100; // Adjust the denominator based on your desired maximum value
+    const baseStatPercentage = (stat.base_stat / 255) * 100; // Adjust the denominator based on your desired maximum value
 
     const barStyle = {
       width: "100%", // Set the overall width to 100%
