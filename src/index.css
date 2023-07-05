@@ -459,6 +459,7 @@ a {
   z-index: 3;
   height: 600px;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .pokedex-modal__card-header {
@@ -568,6 +569,7 @@ a {
   border-radius: 0.625rem;
   padding: 1.5rem;
   min-height: 24.0625rem;
+  overflow: auto;
 }
 
 .model-card__info-tabs {
