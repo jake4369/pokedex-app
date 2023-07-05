@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = ({ setPokemonName, setSelectedType }) => {
+const SearchBar = ({ setPokemonName, setSelectedType, filterPokemon }) => {
   const [name, setName] = useState("");
 
   const handleChange = (e) => {
     setName(e.target.value);
   };
+
+  useEffect(() => {
+    if (filterPokemon) {
+      filterPokemon();
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +20,10 @@ const SearchBar = ({ setPokemonName, setSelectedType }) => {
     if (name !== "") {
       setPokemonName(name.toLowerCase());
       setName("");
+    }
+
+    if (filterPokemon) {
+      filterPokemon();
     }
   };
 

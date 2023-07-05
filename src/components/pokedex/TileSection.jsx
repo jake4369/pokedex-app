@@ -3,7 +3,12 @@ import { useState } from "react";
 import PokemonTile from "./PokemonTile";
 import Pagination from "./Pagination";
 
-const TileSection = ({ loading, allPokemonData, getSinglePokemonData }) => {
+const TileSection = ({
+  loading,
+  allPokemonData,
+  getSinglePokemonData,
+  filteredPokemon,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 15;
@@ -13,15 +18,17 @@ const TileSection = ({ loading, allPokemonData, getSinglePokemonData }) => {
 
   const tiles =
     !loading &&
-    [...allPokemonData].slice(startIndex, endIndex).map((obj) => {
-      return (
-        <PokemonTile
-          key={obj.id}
-          data={obj}
-          getSinglePokemonData={getSinglePokemonData}
-        />
-      );
-    });
+    (filteredPokemon ? filteredPokemon : allPokemonData)
+      .slice(startIndex, endIndex)
+      .map((obj) => {
+        return (
+          <PokemonTile
+            key={obj.id}
+            pokemonData={obj}
+            getSinglePokemonData={getSinglePokemonData}
+          />
+        );
+      });
 
   return (
     <section className="tile-section">

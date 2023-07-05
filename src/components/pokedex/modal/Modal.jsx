@@ -4,7 +4,7 @@ import Card from "./Card";
 const Modal = ({
   pokedexModalOpen,
   setPokemonModalOpen,
-  initialPokemonData,
+  allPokemonData,
   selectedPokemon,
   setSelectedPokemon,
 }) => {
@@ -46,7 +46,7 @@ const Modal = ({
   return (
     <div className="pokedex-modal" onClick={handleCloseModal}>
       <Card
-        initialPokemonData={initialPokemonData}
+        allPokemonData={allPokemonData}
         setPokemonModalOpen={setPokemonModalOpen}
         selectedPokemon={selectedPokemon}
         setSelectedPokemon={setSelectedPokemon}

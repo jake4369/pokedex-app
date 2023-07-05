@@ -6,103 +6,42 @@ import TypeIconContainer from "./../components/pokedex/TypeIconContainer";
 import TileSection from "./../components/pokedex/TileSection";
 import Modal from "../components/pokedex/modal/Modal";
 
-const Pokedex = () => {
-  const [urls, setUrls] = useState([]);
-  const [initialPokemonData, setInitialPokemonData] = useState([]);
-  const [allPokemonData, setAllPokemonData] = useState([]);
+const Pokedex = ({ allPokemonData, loading }) => {
+  const [filteredPokemon, setFilteredPokemon] = useState(null);
   const [pokemonName, setPokemonName] = useState("");
-  const [loading, setLoading] = useState(true);
   const [selectedType, setSelectedType] = useState("");
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [pokedexModalOpen, setPokemonModalOpen] = useState(false);
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=3000&offset=0")
-      .then((res) => res.json())
-      .then((data) => {
-        const urls = [...data.results].map((obj) => obj.url);
+    filterPokemon();
+  }, [pokemonName, selectedType]);
 
-        if (urls.length > 0) setUrls(urls);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const filterPokemon = () => {
+    if (pokemonName !== "" && selectedType === "") {
+      const filteredByName = [...allPokemonData].filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())
+      );
 
-  useEffect(() => {
-    setLoading(true);
-    const fetchedData = [];
-    const fetchErrors = [];
-
-    const fetchWithRetry = (url, retryCount = 0) => {
-      const maxRetries = 3;
-      const delayBetweenRetries = 1000;
-
-      if (retryCount > maxRetries) {
-        fetchErrors.push(`Exceeded maximum number of retries for ${url}`);
-        return;
-      }
-
-      fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          fetchedData.push(data);
-        })
-        .catch((error) => {
-          console.log(`Error fetching data for ${url}:`, error);
-          setTimeout(
-            () => fetchWithRetry(url, retryCount + 1),
-            delayBetweenRetries
-          );
-        })
-        .finally(() => {
-          if (fetchedData.length === urls.length) {
-            if (fetchErrors.length > 0) {
-              console.log("Errors occurred while fetching data:", fetchErrors);
-            }
-
-            const sortedData = [...fetchedData].sort((a, b) => a.id - b.id);
-
-            const filteredByName = sortedData.filter((pokemon) =>
-              pokemon.name.includes(pokemonName)
-            );
-
-            setInitialPokemonData(sortedData);
-
-            if (pokemonName !== "" && selectedType === "") {
-              setAllPokemonData(filteredByName);
-            } else if (selectedType !== "" && pokemonName === "") {
-              const filteredByType = sortedData.filter((obj) => {
-                return (
-                  obj.types[0].type.name === selectedType ||
-                  (obj.types[1] && obj.types[1].type.name === selectedType)
-                );
-              });
-              setAllPokemonData(filteredByType);
-            } else {
-              setAllPokemonData(sortedData);
-            }
-
-            setLoading(false);
-          }
-        });
-    };
-
-    urls.forEach((url) => fetchWithRetry(url));
-  }, [urls, pokemonName, selectedType]);
+      setFilteredPokemon(filteredByName);
+    } else if (selectedType !== "" && pokemonName === "") {
+      const filteredByType = [...allPokemonData].filter((obj) => {
+        return (
+          obj.types[0].type.name === selectedType ||
+          (obj.types[1] && obj.types[1].type.name === selectedType)
+        );
+      });
+      setFilteredPokemon(filteredByType);
+    }
+  };
 
   const getSinglePokemonData = (e, id) => {
     const typeIconContainer = e.target.closest(".tile__type-icon-container");
     const typeIcon = e.target.closest(".type-icon");
 
     if (!typeIconContainer && !typeIcon) {
-      fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-        .then((res) => res.json())
-        .then((data) => setSelectedPokemon(data))
-        .catch((error) => console.log(error));
+      const pokemon = allPokemonData.find((pokemon) => pokemon.id === id);
+      setSelectedPokemon(pokemon);
       setPokemonModalOpen(true);
     }
   };
@@ -116,11 +55,13 @@ const Pokedex = () => {
           <SearchBar
             setPokemonName={setPokemonName}
             setSelectedType={setSelectedType}
+            filterPokemon={filterPokemon}
           />
 
           <TypeIconContainer
             setPokemonName={setPokemonName}
             setSelectedType={setSelectedType}
+            filterPokemon={filterPokemon}
           />
 
           {loading ? ( // Render the loading spinner only for the TileSection component
@@ -130,6 +71,7 @@ const Pokedex = () => {
               loading={loading}
               allPokemonData={allPokemonData}
               getSinglePokemonData={getSinglePokemonData}
+              filteredPokemon={filteredPokemon}
             />
           )}
 
@@ -137,7 +79,7 @@ const Pokedex = () => {
             <Modal
               pokedexModalOpen={pokedexModalOpen}
               setPokemonModalOpen={setPokemonModalOpen}
-              initialPokemonData={initialPokemonData}
+              allPokemonData={allPokemonData}
               selectedPokemon={selectedPokemon}
               setSelectedPokemon={setSelectedPokemon}
             />

@@ -5,7 +5,7 @@ import BaseStats from "./BaseStats";
 import Evolutions from "./Evolutions";
 
 const InfoContainer = ({
-  initialPokemonData,
+  allPokemonData,
   selectedPokemon,
   setSelectedPokemon,
   setType,
@@ -28,6 +28,8 @@ const InfoContainer = ({
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const handleTabClick = (tab) => {
+    const container = document.querySelector(".pokedex-modal__card");
+    container.scrollTop = container.scrollHeight;
     setActiveTab(tab);
   };
 
@@ -59,11 +61,12 @@ const InfoContainer = ({
         <BaseStats selectedPokemon={selectedPokemon} />
       ) : activeTab === "evolutions" ? (
         <Evolutions
-          initialPokemonData={initialPokemonData}
+          allPokemonData={allPokemonData}
           speciesInfo={speciesInfo}
           selectedPokemon={selectedPokemon}
           setSelectedPokemon={setSelectedPokemon}
           setType={setType}
+          setActiveTab={setActiveTab}
         />
       ) : null}
     </div>

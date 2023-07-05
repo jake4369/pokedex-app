@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import LoadingData from "./LoadingData";
 
 const Evolutions = ({
-  initialPokemonData,
+  allPokemonData,
   speciesInfo,
   setSelectedPokemon,
   setType,
+  setActiveTab,
 }) => {
   const selectedChainUrl = speciesInfo.evolution_chain.url;
   const [evolutionChainNames, setEvolutionChainNames] = useState([]);
@@ -14,7 +15,7 @@ const Evolutions = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const eevee = initialPokemonData.find((pokemon) => pokemon.name === "eevee");
+  const eevee = allPokemonData.find((pokemon) => pokemon.name === "eevee");
 
   useEffect(() => {
     const fetchEvolutionChain = async () => {
@@ -45,29 +46,6 @@ const Evolutions = ({
     fetchEvolutionChain();
   }, [selectedChainUrl, speciesInfo]);
 
-  console.log(evolutionChainNames);
-
-  useEffect(() => {
-    if (evolutionChainNames.length > 0) {
-      fetch(selectedChainUrl)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data) {
-            if (speciesInfo.name === evolutionChainNames[0]) {
-              setEvolutionDetails(
-                data.chain.evolves_to[0].evolution_details[0]
-              );
-            } else if (speciesInfo.name === evolutionChainNames[1]) {
-              console.log(
-                data.chain.evolves_to[0].evolves_to[0].evolution_details[0]
-              );
-            }
-          }
-        });
-    }
-  }, [speciesInfo]);
-
   const extractEvolutionNames = (chain) => {
     const evolutionNames = [];
 
@@ -87,21 +65,21 @@ const Evolutions = ({
 
   const basicStagePokemon =
     evolutionChainNames.length > 0
-      ? initialPokemonData.find(
+      ? allPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[0]
         )
       : null;
 
   const stageOnePokemon =
     evolutionChainNames.length > 1
-      ? initialPokemonData.find(
+      ? allPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[1]
         )
       : null;
 
   const stageTwoPokemon =
     evolutionChainNames.length > 2
-      ? initialPokemonData.find(
+      ? allPokemonData.find(
           (pokemon) => pokemon.name === evolutionChainNames[2]
         )
       : null;
@@ -118,7 +96,7 @@ const Evolutions = ({
 
       if (speciesInfo.name === "eevee") {
         const stages = evolutionChainNames.map((name) => {
-          const pokemon = initialPokemonData.find(
+          const pokemon = allPokemonData.find(
             (pokemon) => pokemon.name === name
           );
 
@@ -132,16 +110,18 @@ const Evolutions = ({
         });
 
         const handleClick = (stage) => {
-          console.log(stage);
-          const selectedPokemon = initialPokemonData.find(
+          const selectedPokemon = allPokemonData.find(
             (pokemon) => pokemon.name === stage
           );
           if (selectedPokemon) {
+            const container = document.querySelector(".pokedex-modal__card");
             const types = [...selectedPokemon.types]
               .map((obj) => obj.type.name)
               .sort();
             setType(types[0]);
             setSelectedPokemon(selectedPokemon);
+            setActiveTab("about");
+            container.scrollTop = 0;
           }
         };
 
@@ -211,9 +191,12 @@ const Evolutions = ({
     }
 
     const handleClick = (stage) => {
+      const container = document.querySelector(".pokedex-modal__card");
       const types = [...stage.types].map((obj) => obj.type.name).sort();
       setType(types[0]);
       setSelectedPokemon(stage);
+      setActiveTab("about");
+      container.scrollTop = 0;
     };
 
     return stages.map(({ stage, name, img }) => (

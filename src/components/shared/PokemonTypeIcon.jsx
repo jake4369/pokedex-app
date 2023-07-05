@@ -6,6 +6,7 @@ const PokemonTypeIcon = ({
   backgroundColor,
   setType,
   setPokemonName,
+  filterPokemon,
 }) => {
   const images = typesData.typeIconsImages;
 
@@ -16,6 +17,10 @@ const PokemonTypeIcon = ({
 
     if (setPokemonName) {
       setPokemonName("");
+    }
+
+    if (filterPokemon) {
+      filterPokemon(); // Invoke the filterPokemon function
     }
   };
 

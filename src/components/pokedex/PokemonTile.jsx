@@ -4,8 +4,8 @@ import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
 import typesData from "../../data/data";
 
-const PokemonTile = ({ data, getSinglePokemonData }) => {
-  const types = [...data.types].map((obj) => obj.type.name).sort();
+const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
+  const types = [...pokemonData.types].map((obj) => obj.type.name).sort();
   const [type, setType] = useState(types[0]);
 
   const typeColor = typesData.typeColors.find((colorObj) =>
@@ -14,14 +14,15 @@ const PokemonTile = ({ data, getSinglePokemonData }) => {
 
   const tileBackgroundColor = typeColor ? typeColor[type] : null;
 
-  const pokemonImage = data.sprites.other["official-artwork"].front_default;
+  const pokemonImage =
+    pokemonData.sprites.other["official-artwork"].front_default;
   const pokedexNumber =
-    data.id < 10
-      ? `#00${data.id}`
-      : data.id < 100
-      ? `#0${data.id}`
-      : `#${data.id}`;
-  const pokemonName = data.name;
+    pokemonData.id < 10
+      ? `#00${pokemonData.id}`
+      : pokemonData.id < 100
+      ? `#0${pokemonData.id}`
+      : `#${pokemonData.id}`;
+  const pokemonName = pokemonData.name;
 
   const typeIcons = types.map((type) => {
     const colorObj = typesData.typeColors.find((obj) => obj[type]);
@@ -45,7 +46,7 @@ const PokemonTile = ({ data, getSinglePokemonData }) => {
           style={{
             backgroundColor: tileBackgroundColor,
           }}
-          onClick={(e) => getSinglePokemonData(e, data.id)}
+          onClick={(e) => getSinglePokemonData(e, pokemonData.id)}
         >
           <div className="tile__type-icon-container">{typeIcons}</div>
 

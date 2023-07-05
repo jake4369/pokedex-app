@@ -2,7 +2,11 @@ import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
 import typesData from "./../../data/data";
 
-const TypeIconContainer = ({ setSelectedType, setPokemonName }) => {
+const TypeIconContainer = ({
+  setSelectedType,
+  setPokemonName,
+  filterPokemon,
+}) => {
   const typeIcons = typesData.types.map((type) => {
     const colorObj = typesData.typeColors.find((obj) => obj[type]);
     const backgroundColor = colorObj ? colorObj[type] : "";
@@ -14,6 +18,7 @@ const TypeIconContainer = ({ setSelectedType, setPokemonName }) => {
           backgroundColor={backgroundColor}
           setType={setSelectedType}
           setPokemonName={setPokemonName}
+          filterPokemon={filterPokemon}
         />
 
         <p>{type}</p>
