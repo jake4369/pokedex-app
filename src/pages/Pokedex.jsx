@@ -12,6 +12,7 @@ const Pokedex = ({ allPokemonData, loading }) => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [pokedexModalOpen, setPokemonModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     filterPokemon();
@@ -56,12 +57,14 @@ const Pokedex = ({ allPokemonData, loading }) => {
             setPokemonName={setPokemonName}
             setSelectedType={setSelectedType}
             filterPokemon={filterPokemon}
+            setFilteredPokemon={setFilteredPokemon}
           />
 
           <TypeIconContainer
             setPokemonName={setPokemonName}
             setSelectedType={setSelectedType}
             filterPokemon={filterPokemon}
+            setCurrentPage={setCurrentPage}
           />
 
           {loading ? ( // Render the loading spinner only for the TileSection component
@@ -72,6 +75,8 @@ const Pokedex = ({ allPokemonData, loading }) => {
               allPokemonData={allPokemonData}
               getSinglePokemonData={getSinglePokemonData}
               filteredPokemon={filteredPokemon}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           )}
 

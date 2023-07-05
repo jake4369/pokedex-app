@@ -6,6 +6,7 @@ const TypeIconContainer = ({
   setSelectedType,
   setPokemonName,
   filterPokemon,
+  setCurrentPage,
 }) => {
   const typeIcons = typesData.types.map((type) => {
     const colorObj = typesData.typeColors.find((obj) => obj[type]);
@@ -19,6 +20,7 @@ const TypeIconContainer = ({
           setType={setSelectedType}
           setPokemonName={setPokemonName}
           filterPokemon={filterPokemon}
+          setCurrentPage={setCurrentPage}
         />
 
         <p>{type}</p>

@@ -21,6 +21,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           <p>Prev</p>
         </PaginationBtn>
         <PaginationBtn
+          isDisabled={currentPage === totalPages}
           handleClick={() => handlePageChange(currentPage + 1)}
           classname="next-page-btn"
         >
