@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { motion } from "framer-motion";
-
 import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
 import typesData from "../../data/data";
@@ -40,18 +38,6 @@ const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
     );
   });
 
-  // <motion.div
-  //   initial={{ opacity: 0 }}
-  //   animate={{ opacity: 1 }}
-  //   transition={{
-  //     duration: 0.6,
-  //     delay: 0.5,
-  //     ease: [0, 0.71, 0.2, 1.01],
-  //   }}
-  // >
-
-  // </motion.div>
-
   return (
     <>
       {pokemonImage && (
@@ -62,23 +48,14 @@ const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
           }}
           onClick={(e) => getSinglePokemonData(e, pokemonData.id)}
         >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.3,
-              delay: 0.2,
-              ease: [0, 0.71, 0.2, 1.01],
-            }}
-          >
-            <div className="tile__type-icon-container">{typeIcons}</div>
-            <img src={pokemonImage} alt={pokemonName} className="tile-img" />
+          <div className="tile__type-icon-container">{typeIcons}</div>
 
-            <h2>
-              <span className="tile__pokedex-number">{pokedexNumber}</span>{" "}
-              <span className="tile__pokemon-name">{pokemonName}</span>
-            </h2>
-          </motion.div>
+          <img src={pokemonImage} alt={pokemonName} className="tile-img" />
+
+          <h2>
+            <span className="tile__pokedex-number">{pokedexNumber}</span>{" "}
+            <span className="tile__pokemon-name">{pokemonName}</span>
+          </h2>
         </div>
       )}
     </>
