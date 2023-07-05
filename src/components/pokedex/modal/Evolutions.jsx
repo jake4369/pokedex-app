@@ -14,6 +14,8 @@ const Evolutions = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const eevee = initialPokemonData.find((pokemon) => pokemon.name === "eevee");
+
   useEffect(() => {
     const fetchEvolutionChain = async () => {
       try {
@@ -41,7 +43,7 @@ const Evolutions = ({
     };
 
     fetchEvolutionChain();
-  }, [selectedChainUrl, evolutionDetails, speciesInfo, evolutionChainNames]);
+  }, [selectedChainUrl, speciesInfo]);
 
   console.log(evolutionChainNames);
 
@@ -129,8 +131,26 @@ const Evolutions = ({
           };
         });
 
+        const handleClick = (stage) => {
+          console.log(stage);
+          const selectedPokemon = initialPokemonData.find(
+            (pokemon) => pokemon.name === stage
+          );
+          if (selectedPokemon) {
+            const types = [...selectedPokemon.types]
+              .map((obj) => obj.type.name)
+              .sort();
+            setType(types[0]);
+            setSelectedPokemon(selectedPokemon);
+          }
+        };
+
         return stages.map(({ stage, name, img }) => (
-          <li key={name} className="evolution-chain__pokemon-container">
+          <li
+            key={name}
+            className="evolution-chain__pokemon-container"
+            onClick={() => handleClick(stage)}
+          >
             {stage && (
               <>
                 <img
@@ -141,7 +161,8 @@ const Evolutions = ({
                 <span className="evolution-chain__pokemon-name">
                   {stage.name}
                 </span>
-                <span className="evolution-chain__pokemon-stage">{name}</span>
+                <span className="evolution-chain__pokemon-name">{name}</span>
+                <span className="evolution-chain__pokemon-stage">Stage 1</span>
               </>
             )}
           </li>
