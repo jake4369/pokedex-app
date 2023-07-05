@@ -841,6 +841,14 @@ li.base-stat-container {
   background-position: right;
 }
 
+.pagination button {
+  transition: all 0.3s ease-in-out;
+}
+
+.pagination button:active {
+  transform: scale(0.9);
+}
+
 .btn-arrow {
   font-size: 2rem;
 }
