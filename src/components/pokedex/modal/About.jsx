@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import LoadingData from "./LoadingData";
 
 import StatEntry from "./StatEntry";
@@ -62,44 +63,54 @@ const About = ({ selectedPokemon, speciesInfo, speciesInfoLoaded }) => {
   const eggGroups = speciesInfo?.egg_groups || [];
 
   return (
-    <div className="modal-card__about">
-      {speciesInfoLoaded ? (
-        <div
-          style={{
-            opacity: 0,
-          }}
-          className="fade-in-fwd"
-        >
-          <p className="modal-card__about-description">{description}</p>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.6,
+        delay: 0.5,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <div className="modal-card__about">
+        {speciesInfoLoaded ? (
+          <div
+            style={{
+              opacity: 0,
+            }}
+            className="fade-in-fwd"
+          >
+            <p className="modal-card__about-description">{description}</p>
 
-          <ul className="modal-card__about-main-info">
-            <StatEntry title="Species" value={speciesType} />
+            <ul className="modal-card__about-main-info">
+              <StatEntry title="Species" value={speciesType} />
 
-            <StatEntry
-              title={types.length > 1 ? "Types" : "Type"}
-              value={formatTypes(types)}
-            />
+              <StatEntry
+                title={types.length > 1 ? "Types" : "Type"}
+                value={formatTypes(types)}
+              />
 
-            <StatEntry title="Habitat" value={formatHabitat(habitat)} />
+              <StatEntry title="Habitat" value={formatHabitat(habitat)} />
 
-            <StatEntry title="Height" value={height} />
+              <StatEntry title="Height" value={height} />
 
-            <StatEntry title="Weight" value={weight} />
+              <StatEntry title="Weight" value={weight} />
 
-            <StatEntry title="Color" value={color} />
+              <StatEntry title="Color" value={color} />
 
-            <StatEntry title="Abilities" value={formatAbilities(abilities)} />
+              <StatEntry title="Abilities" value={formatAbilities(abilities)} />
 
-            <StatEntry
-              title={eggGroups.length > 1 ? "Egg groups" : "Egg group"}
-              value={formatEggGroups(eggGroups)}
-            />
-          </ul>
-        </div>
-      ) : (
-        <LoadingData />
-      )}
-    </div>
+              <StatEntry
+                title={eggGroups.length > 1 ? "Egg groups" : "Egg group"}
+                value={formatEggGroups(eggGroups)}
+              />
+            </ul>
+          </div>
+        ) : (
+          <LoadingData />
+        )}
+      </div>
+    </motion.div>
   );
 };
 

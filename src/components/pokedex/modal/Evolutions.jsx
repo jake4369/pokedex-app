@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 import LoadingData from "./LoadingData";
 
@@ -220,15 +221,27 @@ const Evolutions = ({
     ));
   };
 
-  if (isLoading) {
-    return <LoadingData />;
-  }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  return <ul className="evolutions fade-in-fwd">{renderEvolutionChain()}</ul>;
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.6,
+        delay: 0.5,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      {isLoading ? (
+        <LoadingData />
+      ) : (
+        <ul className="evolutions">{renderEvolutionChain()}</ul>
+      )}
+    </motion.div>
+  );
 };
 
 export default Evolutions;

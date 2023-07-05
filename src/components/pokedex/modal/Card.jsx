@@ -11,6 +11,7 @@ const Card = ({
   selectedPokemon,
   setSelectedPokemon,
 }) => {
+  console.log(selectedPokemon);
   let types;
 
   if (selectedPokemon !== null) {

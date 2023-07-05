@@ -24,7 +24,9 @@ const PokemonTypeIcon = ({
       filterPokemon(); // Invoke the filterPokemon function
     }
 
-    setCurrentPage(1);
+    if (setCurrentPage) {
+      setCurrentPage(1);
+    }
   };
 
   return (
