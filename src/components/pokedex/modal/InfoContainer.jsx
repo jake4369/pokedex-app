@@ -10,7 +10,6 @@ const InfoContainer = ({
   setSelectedPokemon,
   setType,
 }) => {
-  console.log(selectedPokemon);
   const [speciesInfo, setSpeciesInfo] = useState(null);
   const [speciesInfoLoaded, setSpeciesInfoLoaded] = useState(false);
 

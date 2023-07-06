@@ -4,7 +4,12 @@ import PokemonTypeIcon from "./../shared/PokemonTypeIcon";
 
 import typesData from "../../data/data";
 
-const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
+const PokemonTile = ({
+  pokemonData,
+  getSinglePokemonData,
+  setShowFilters,
+  setActiveFilter,
+}) => {
   const types = [...pokemonData.types].map((obj) => obj.type.name).sort();
   const [type, setType] = useState(types[0]);
 
@@ -38,6 +43,12 @@ const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
     );
   });
 
+  const handleClick = (e) => {
+    getSinglePokemonData(e, pokemonData.id);
+    setShowFilters(false);
+    setActiveFilter("");
+  };
+
   return (
     <>
       {pokemonImage && (
@@ -46,7 +57,7 @@ const PokemonTile = ({ pokemonData, getSinglePokemonData }) => {
           style={{
             backgroundColor: tileBackgroundColor,
           }}
-          onClick={(e) => getSinglePokemonData(e, pokemonData.id)}
+          onClick={handleClick}
         >
           <div className="tile__type-icon-container">{typeIcons}</div>
 

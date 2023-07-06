@@ -8,6 +8,7 @@ const PokemonTypeIcon = ({
   setPokemonName,
   filterPokemon,
   setCurrentPage,
+  setShowFilters,
 }) => {
   const images = typesData.typeIconsImages;
 
@@ -26,6 +27,10 @@ const PokemonTypeIcon = ({
 
     if (setCurrentPage) {
       setCurrentPage(1);
+    }
+
+    if (setShowFilters) {
+      setShowFilters(false);
     }
   };
 

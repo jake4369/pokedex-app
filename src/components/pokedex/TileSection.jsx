@@ -10,6 +10,8 @@ const TileSection = ({
   filteredPokemon,
   currentPage,
   setCurrentPage,
+  setShowFilters,
+  setActiveFilter,
 }) => {
   // const [currentPage, setCurrentPage] = useState(1);
 
@@ -28,6 +30,8 @@ const TileSection = ({
             key={obj.id}
             pokemonData={obj}
             getSinglePokemonData={getSinglePokemonData}
+            setShowFilters={setShowFilters}
+            setActiveFilter={setActiveFilter}
           />
         );
       });
@@ -35,8 +39,6 @@ const TileSection = ({
   const numResults = filteredPokemon
     ? filteredPokemon.length
     : allPokemonData.length;
-
-  console.log(numResults);
 
   return (
     <section className="tile-section">
@@ -49,6 +51,7 @@ const TileSection = ({
           currentPage={currentPage}
           totalPages={Math.ceil(numResults / itemsPerPage)}
           onPageChange={setCurrentPage}
+          setShowFilters={setShowFilters}
         />
       )}
     </section>

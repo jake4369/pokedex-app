@@ -25,7 +25,8 @@ ul {
 /* REMOVE FOCUS */
 input,
 button,
-.tile {
+.tile,
+* {
   outline: none !important;
   -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
   -webkit-touch-callout: none; /* Disable callout on iOS */
@@ -336,6 +337,43 @@ a {
 }
 
 /* ==========
+ GENERATION FILTER SECTION
+ ========== */
+.generation-filter__card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 0;
+  flex-wrap: wrap;
+  width: 95%;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+}
+
+.generation-filter__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%;
+  max-width: 18.125rem;
+  height: 9.375rem;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  box-shadow: 0.125rem 0.3125rem 0.3125rem rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.generation-filter__card img {
+  width: 9.375rem;
+}
+
+.generation-filter__card p {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+/* ==========
  TILE SECTION
  ========== */
 /* SECTION */
@@ -380,6 +418,7 @@ a {
   -moz-user-select: none; /* Disable selection on Firefox */
   -ms-user-select: none; /* Disable selection on IE/Edge */
   user-select: none;
+  box-shadow: 0.125rem 0.3125rem 0.3125rem rgba(0, 0, 0, 0.4);
 }
 
 .tile-img {
@@ -881,6 +920,30 @@ li.base-stat-container {
     font-size: 1rem;
     color: #000;
   }
+
+  .pokedex-page__filter-section {
+    margin: 0 auto 2rem auto;
+  }
+
+  /* ==========
+  GENERATION FILTER SECTION
+  ========== */
+  .generation-filter__card-container {
+    max-width: 43.75rem;
+  }
+
+  .generation-filter__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    height: 9.375rem;
+  }
+
+  .generation-filter__card p {
+    font-size: 1.25rem;
+  }
 }
 
 @media (min-width: 48rem) {
@@ -945,6 +1008,18 @@ li.base-stat-container {
   }
 
   /* ==========
+ GENERATION FILTER SECTION
+ ========== */
+  .generation-filter__card-container {
+    width: 95%;
+    max-width: 62.5rem;
+  }
+
+  .generation-filter__card:hover {
+    box-shadow: 0.3125rem 0.625rem 0.3125rem rgba(0, 0, 0, 0.4);
+  }
+
+  /* ==========
   TILE SECTION
   ========== */
   /* SECTION */
@@ -954,7 +1029,6 @@ li.base-stat-container {
   }
 
   .tile:hover {
-    transform: scale(1.1);
     box-shadow: 0.3125rem 0.625rem 0.3125rem rgba(0, 0, 0, 0.4);
   }
 }

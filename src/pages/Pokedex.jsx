@@ -1,17 +1,22 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 import LoadingSpinner from "./../components/shared/LoadingSpinner";
 import SearchBar from "./../components/pokedex/SearchBar";
+import FilterBtn from "../components/pokedex/FilterBtn";
 import TypeIconContainer from "./../components/pokedex/TypeIconContainer";
+import GenerationFilterContainer from "./../components/pokedex/GenerationFilterContainer";
 import TileSection from "./../components/pokedex/TileSection";
 import Modal from "../components/pokedex/modal/Modal";
 
 const Pokedex = ({ allPokemonData, loading }) => {
   const [filteredPokemon, setFilteredPokemon] = useState(null);
   const [pokemonName, setPokemonName] = useState("");
-  const [selectedType, setSelectedType] = useState("");
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [pokedexModalOpen, setPokemonModalOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+  const [activeFilter, setActiveFilter] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -47,9 +52,19 @@ const Pokedex = ({ allPokemonData, loading }) => {
     }
   };
 
+  const onFilterBtnClick = (e) => {
+    if (activeFilter === e.target.textContent) {
+      setActiveFilter("");
+      setShowFilters(false);
+    } else {
+      setActiveFilter(e.target.textContent);
+      setShowFilters(true);
+    }
+  };
+
   return (
     <div className="pokedex-page">
-      {loading && !allPokemonData.length ? ( // Check if loading is true and no pokemonData is available
+      {loading && !allPokemonData.length ? (
         <LoadingSpinner />
       ) : (
         <>
@@ -60,14 +75,64 @@ const Pokedex = ({ allPokemonData, loading }) => {
             setFilteredPokemon={setFilteredPokemon}
           />
 
-          <TypeIconContainer
-            setPokemonName={setPokemonName}
-            setSelectedType={setSelectedType}
-            filterPokemon={filterPokemon}
-            setCurrentPage={setCurrentPage}
-          />
+          <section className="pokedex-page__filter-section">
+            <div
+              className="pokedex-page__filter-btns"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0 auto 2rem auto",
+              }}
+            >
+              <FilterBtn onFilterBtnClick={onFilterBtnClick}>type</FilterBtn>
+              <FilterBtn onFilterBtnClick={onFilterBtnClick}>
+                generation
+              </FilterBtn>
+            </div>
 
-          {loading ? ( // Render the loading spinner only for the TileSection component
+            {showFilters && (
+              <>
+                {activeFilter === "type" && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.1,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                    className="pokedex-page__filter-container"
+                  >
+                    <TypeIconContainer
+                      setPokemonName={setPokemonName}
+                      setSelectedType={setSelectedType}
+                      filterPokemon={filterPokemon}
+                      setCurrentPage={setCurrentPage}
+                      setShowFilters={setShowFilters}
+                    />
+                  </motion.div>
+                )}
+                {activeFilter === "generation" && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.1,
+                      ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                    className="pokedex-page__filter-container"
+                  >
+                    {" "}
+                    <GenerationFilterContainer />
+                  </motion.div>
+                )}
+              </>
+            )}
+          </section>
+
+          {loading ? (
             <LoadingSpinner />
           ) : (
             <TileSection
@@ -77,6 +142,8 @@ const Pokedex = ({ allPokemonData, loading }) => {
               filteredPokemon={filteredPokemon}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
+              setActiveFilter={setActiveFilter}
+              setShowFilters={setShowFilters}
             />
           )}
 

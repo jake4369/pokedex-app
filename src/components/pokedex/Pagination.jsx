@@ -1,11 +1,17 @@
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import PaginationBtn from "./PaginationBtn";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  setShowFilters,
+}) => {
   const handlePageChange = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       onPageChange(pageNumber);
       window.scrollTo(0, 0);
+      setShowFilters(false);
     }
   };
 
