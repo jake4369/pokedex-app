@@ -81,10 +81,12 @@ const Pokedex = ({ allPokemonData, loading }) => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 margin: "0 auto 2rem auto",
+                width: "170px",
               }}
             >
+              <p>Filter by: </p>
               <FilterBtn onFilterBtnClick={onFilterBtnClick}>type</FilterBtn>
               <FilterBtn onFilterBtnClick={onFilterBtnClick}>
                 generation
