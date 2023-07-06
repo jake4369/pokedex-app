@@ -346,7 +346,7 @@ a {
   gap: 1rem 0;
   flex-wrap: wrap;
   width: 95%;
-  max-width: 600px;
+  max-width: 37.5rem;
   margin: 0 auto 2rem auto;
 }
 
@@ -366,7 +366,8 @@ a {
 }
 
 .generation-filter__card img {
-  width: 9.375rem;
+  width: 80%;
+  max-width: 9.375rem;
 }
 
 .generation-filter__card p {
