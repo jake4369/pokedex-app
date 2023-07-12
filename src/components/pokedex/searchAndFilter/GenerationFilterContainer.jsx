@@ -85,6 +85,7 @@ const GenerationFilterContainer = ({
     setShowPokemon(true);
     setCurrentPage(1);
     setActiveFilter("");
+    window.scrollTo(0, 0);
   };
 
   const cards = images.map((img, index) => {
