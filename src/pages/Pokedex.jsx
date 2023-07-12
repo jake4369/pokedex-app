@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 
 import LoadingSpinner from "./../components/shared/LoadingSpinner";
-import SearchBar from "./../components/pokedex/SearchBar";
-import FilterBtn from "../components/pokedex/FilterBtn";
-import TypeIconContainer from "./../components/pokedex/TypeIconContainer";
-import GenerationFilterContainer from "./../components/pokedex/GenerationFilterContainer";
 import TileSection from "./../components/pokedex/TileSection";
 import PokedexInstructions from "../components/pokedex/PokedexInstructions";
 import Modal from "../components/pokedex/modal/Modal";
+import SearchAndFilter from "../components/pokedex/searchAndFilter/SearchAndFilter";
 
 const Pokedex = ({ allPokemonData, loading }) => {
   const [filteredPokemon, setFilteredPokemon] = useState(null);
@@ -29,7 +25,7 @@ const Pokedex = ({ allPokemonData, loading }) => {
   const filterPokemon = () => {
     if (pokemonName !== "" && selectedType === "") {
       const filteredByName = [...allPokemonData].filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())
+        pokemon.name.toLowerCase().startsWith(pokemonName.toLowerCase())
       );
 
       setFilteredPokemon(filteredByName);
@@ -41,6 +37,8 @@ const Pokedex = ({ allPokemonData, loading }) => {
         );
       });
       setFilteredPokemon(filteredByType);
+    } else if (pokemonName === "" && activeFilter === "") {
+      setFilteredPokemon(allPokemonData);
     }
   };
 
@@ -55,90 +53,27 @@ const Pokedex = ({ allPokemonData, loading }) => {
     }
   };
 
-  const onFilterBtnClick = (e) => {
-    setShowFilters(true);
-    setShowPokemon(false);
-    setActiveFilter(e.target.textContent);
-    setShowInstructions(false);
-  };
-
-  const handleViewAllBtnClick = () => {
-    setShowFilters(false);
-    setFilteredPokemon(null);
-    setShowPokemon(true);
-    setShowInstructions(false);
-    setCurrentPage(1);
-  };
-
   return (
     <div className="pokedex-page">
       {loading && !allPokemonData.length ? (
         <LoadingSpinner />
       ) : (
         <>
-          <SearchBar
+          <SearchAndFilter
+            allPokemonData={allPokemonData}
+            pokemonName={pokemonName}
             setPokemonName={setPokemonName}
-            setSelectedType={setSelectedType}
             filterPokemon={filterPokemon}
             setFilteredPokemon={setFilteredPokemon}
+            showFilters={showFilters}
+            setShowFilters={setShowFilters}
+            setShowPokemon={setShowPokemon}
+            setSelectedType={setSelectedType}
+            setShowInstructions={setShowInstructions}
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+            setCurrentPage={setCurrentPage}
           />
-
-          <section className="pokedex-page__filter-section">
-            <div className="pokedex-page__filter-btn-container">
-              <FilterBtn onFilterBtnClick={onFilterBtnClick}>type</FilterBtn>
-              <FilterBtn onFilterBtnClick={onFilterBtnClick}>
-                generation
-              </FilterBtn>
-              <button onClick={handleViewAllBtnClick}>view all</button>
-            </div>
-
-            {showFilters && (
-              <>
-                {activeFilter === "type" && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.1,
-                      ease: [0, 0.71, 0.2, 1.01],
-                    }}
-                    className="pokedex-page__filter-container"
-                  >
-                    <TypeIconContainer
-                      setPokemonName={setPokemonName}
-                      setSelectedType={setSelectedType}
-                      filterPokemon={filterPokemon}
-                      setCurrentPage={setCurrentPage}
-                      setShowFilters={setShowFilters}
-                      setShowPokemon={setShowPokemon}
-                    />
-                  </motion.div>
-                )}
-                {activeFilter === "generation" && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: 0.1,
-                      ease: [0, 0.71, 0.2, 1.01],
-                    }}
-                    className="pokedex-page__filter-container"
-                  >
-                    {" "}
-                    <GenerationFilterContainer
-                      allPokemonData={allPokemonData}
-                      setFilteredPokemon={setFilteredPokemon}
-                      setShowPokemon={setShowPokemon}
-                      setShowFilters={setShowFilters}
-                      setCurrentPage={setCurrentPage}
-                    />
-                  </motion.div>
-                )}
-              </>
-            )}
-          </section>
 
           {loading ? (
             <LoadingSpinner />
