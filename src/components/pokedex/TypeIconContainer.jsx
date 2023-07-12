@@ -8,6 +8,7 @@ const TypeIconContainer = ({
   filterPokemon,
   setCurrentPage,
   setShowFilters,
+  setShowPokemon,
 }) => {
   const typeIcons = typesData.types.map((type) => {
     const colorObj = typesData.typeColors.find((obj) => obj[type]);
@@ -23,6 +24,7 @@ const TypeIconContainer = ({
           filterPokemon={filterPokemon}
           setCurrentPage={setCurrentPage}
           setShowFilters={setShowFilters}
+          setShowPokemon={setShowPokemon}
         />
 
         <p>{type}</p>
@@ -31,10 +33,10 @@ const TypeIconContainer = ({
   });
 
   return (
-    <div>
+    <header className="search-type__container">
       <h2>Click an icon to search by type</h2>
       <div className="pokedex-page__type-icon-container">{typeIcons}</div>
-    </div>
+    </header>
   );
 };
 
