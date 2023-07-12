@@ -69,6 +69,7 @@ const SearchAndFilter = ({
             <option value="generation">Generation</option>
             <option value="mega">Mega Evolutions</option>
             <option value="gmax">Gmax Pokemon</option>
+            <option value="alola">Alola Pokemon</option>
             <option value="galar">Galar Pokemon</option>
             <option value="hisui">Hisui Pokemon</option>
           </select>
