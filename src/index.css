@@ -733,9 +733,9 @@ li.base-stat-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem 0;
-  /* opacity: 0; */
+  justify-content: space-evenly;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .evolution-chain__pokemon-container {
@@ -743,12 +743,12 @@ li.base-stat-container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: fit-content;
   cursor: pointer;
 }
 
 .evolution-chain__pokemon-img {
-  width: 100%;
+  width: 100px;
   margin-bottom: 0.5rem;
 }
 
@@ -756,6 +756,7 @@ li.base-stat-container {
 .evolution-chain__pokemon-stage {
   text-transform: capitalize;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .evolution-chain__pokemon-name {
