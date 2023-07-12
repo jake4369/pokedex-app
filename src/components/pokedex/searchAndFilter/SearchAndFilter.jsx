@@ -64,7 +64,9 @@ const SearchAndFilter = ({
       <div className="pokedex-page__filter-section">
         <div className="pokedex-page__filter-control-container">
           <select value={activeFilter} onChange={handleChange}>
-            <option value="">Select Filter</option>
+            <option value="" disabled>
+              Select Filter
+            </option>
             <option value="type">Type</option>
             <option value="generation">Generation</option>
             <option value="mega">Mega Evolutions</option>
