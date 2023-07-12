@@ -49,8 +49,6 @@ const Evolutions = ({
         evolutionNames.push(speciesName);
       }
 
-      console.log(selectedPokemon);
-
       if (chain.evolves_to.length > 0) {
         chain = chain.evolves_to[0];
       } else {
@@ -133,8 +131,6 @@ const Evolutions = ({
         </li>
       ));
     }
-
-    console.log(evolutionChainNames);
 
     const stages =
       selectedPokemon.name === "vaporeon" ||
