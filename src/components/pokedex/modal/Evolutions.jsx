@@ -36,24 +36,27 @@ const Evolutions = ({
   const extractEvolutionNames = (chain) => {
     const evolutionNames = [];
 
+    const getFormattedPokemonName = (speciesName, suffix) => {
+      const pokemon = allPokemonData.find(
+        (pokemon) => pokemon.name === `${speciesName}${suffix}`
+      )?.name;
+      return pokemon !== undefined ? `${speciesName}${suffix}` : speciesName;
+    };
+
     while (chain) {
       const speciesName = chain.species.name;
 
       if (selectedPokemon?.name.includes("-galar")) {
-        evolutionNames.push(`${speciesName}-galar`);
+        evolutionNames.push(getFormattedPokemonName(speciesName, "-galar"));
       } else if (selectedPokemon?.name.includes("-hisui")) {
-        evolutionNames.push(`${speciesName}-hisui`);
+        evolutionNames.push(getFormattedPokemonName(speciesName, "-hisui"));
       } else if (selectedPokemon?.name.includes("-alola")) {
-        evolutionNames.push(`${speciesName}-alola`);
+        evolutionNames.push(getFormattedPokemonName(speciesName, "-alola"));
       } else {
         evolutionNames.push(speciesName);
       }
 
-      if (chain.evolves_to.length > 0) {
-        chain = chain.evolves_to[0];
-      } else {
-        chain = null;
-      }
+      chain = chain.evolves_to.length > 0 ? chain.evolves_to[0] : null;
     }
 
     return evolutionNames;
