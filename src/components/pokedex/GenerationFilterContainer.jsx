@@ -22,7 +22,13 @@ const images = [
   genNineImg,
 ];
 
-const GenerationFilterContainer = () => {
+const GenerationFilterContainer = ({
+  allPokemonData,
+  setFilteredPokemon,
+  setShowFilters,
+  setShowPokemon,
+  setCurrentPage,
+}) => {
   function convertToRoman(num) {
     const romanNumerals = [
       { value: 10, numeral: "X" },
@@ -47,12 +53,46 @@ const GenerationFilterContainer = () => {
     return result;
   }
 
+  const filterPokemon = (startNum, endNum) => {
+    return allPokemonData
+      .filter((pokemon) => pokemon.id >= startNum && pokemon.id <= endNum)
+      .sort((a, b) => a.id - b.id);
+  };
+
+  const handleClick = (index) => {
+    if (index === 0) {
+      setFilteredPokemon(filterPokemon(1, 151));
+    } else if (index === 1) {
+      setFilteredPokemon(filterPokemon(152, 251));
+    } else if (index === 2) {
+      setFilteredPokemon(filterPokemon(252, 386));
+    } else if (index === 3) {
+      setFilteredPokemon(filterPokemon(387, 493));
+    } else if (index === 4) {
+      setFilteredPokemon(filterPokemon(494, 649));
+    } else if (index === 5) {
+      setFilteredPokemon(filterPokemon(650, 721));
+    } else if (index === 6) {
+      setFilteredPokemon(filterPokemon(722, 809));
+    } else if (index === 7) {
+      setFilteredPokemon(filterPokemon(810, 905));
+    } else if (index === 8) {
+      setFilteredPokemon(filterPokemon(906, 1010));
+    }
+
+    setShowFilters(false);
+    setShowPokemon(true);
+    setCurrentPage(1);
+  };
+
   const cards = images.map((img, index) => {
     return (
       <GenerationFilterCard
         key={index}
         img={img}
         numeral={convertToRoman(index + 1)}
+        allPokemonData={allPokemonData}
+        onCardClick={() => handleClick(index)}
       />
     );
   });
