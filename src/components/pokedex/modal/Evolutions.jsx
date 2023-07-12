@@ -6,17 +6,15 @@ import LoadingData from "./LoadingData";
 const Evolutions = ({
   allPokemonData,
   speciesInfo,
+  selectedPokemon,
   setSelectedPokemon,
   setType,
   setActiveTab,
 }) => {
   const selectedChainUrl = speciesInfo.evolution_chain.url;
   const [evolutionChainNames, setEvolutionChainNames] = useState([]);
-  const [evolutionDetails, setEvolutionDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const eevee = allPokemonData.find((pokemon) => pokemon.name === "eevee");
 
   useEffect(() => {
     const fetchEvolutionChain = async () => {
@@ -24,19 +22,7 @@ const Evolutions = ({
         const response = await fetch(selectedChainUrl);
         const evolutionChainData = await response.json();
         const evolutionNames = extractEvolutionNames(evolutionChainData.chain);
-        if (speciesInfo.name === "eevee") {
-          setEvolutionChainNames([
-            "vaporeon",
-            "jolteon",
-            "flareon",
-            "espeon",
-            "umbreon",
-            "leafeon",
-            "glaceon",
-          ]);
-        } else {
-          setEvolutionChainNames(evolutionNames);
-        }
+        setEvolutionChainNames(evolutionNames);
         setIsLoading(false);
       } catch (error) {
         setError(error);
@@ -45,14 +31,25 @@ const Evolutions = ({
     };
 
     fetchEvolutionChain();
-  }, [selectedChainUrl, speciesInfo]);
+  }, [selectedChainUrl]);
 
   const extractEvolutionNames = (chain) => {
     const evolutionNames = [];
 
     while (chain) {
       const speciesName = chain.species.name;
-      evolutionNames.push(speciesName);
+
+      if (selectedPokemon?.name.includes("-galar")) {
+        evolutionNames.push(`${speciesName}-galar`);
+      } else if (selectedPokemon?.name.includes("-hisui")) {
+        evolutionNames.push(`${speciesName}-hisui`);
+      } else if (selectedPokemon?.name.includes("-alola")) {
+        evolutionNames.push(`${speciesName}-alola`);
+      } else {
+        evolutionNames.push(speciesName);
+      }
+
+      console.log(selectedPokemon);
 
       if (chain.evolves_to.length > 0) {
         chain = chain.evolves_to[0];
@@ -64,161 +61,134 @@ const Evolutions = ({
     return evolutionNames;
   };
 
-  const basicStagePokemon =
-    evolutionChainNames.length > 0
-      ? allPokemonData.find(
-          (pokemon) => pokemon.name === evolutionChainNames[0]
-        )
-      : null;
+  const findPokemonByName = (name) => {
+    return allPokemonData.find((pokemon) => pokemon.name === name);
+  };
 
-  const stageOnePokemon =
-    evolutionChainNames.length > 1
-      ? allPokemonData.find(
-          (pokemon) => pokemon.name === evolutionChainNames[1]
-        )
-      : null;
-
-  const stageTwoPokemon =
-    evolutionChainNames.length > 2
-      ? allPokemonData.find(
-          (pokemon) => pokemon.name === evolutionChainNames[2]
-        )
-      : null;
+  const renderPokemonStage = (stage, name, img) => {
+    const container = document.querySelector(".pokedex-modal__card");
+    const types = [...stage.types].map((obj) => obj.type.name).sort();
+    setType(types[0]);
+    setSelectedPokemon(stage);
+    setActiveTab("about");
+    container.scrollTop = 0;
+  };
 
   const renderEvolutionChain = () => {
     if (evolutionChainNames.length === 1) {
       return <li className="no-evolution-message">No evolutions</li>;
     }
 
-    if (speciesInfo.name === "eevee") {
-      if (evolutionChainNames.length === 1) {
-        return <li className="no-evolution-message">No evolutions</li>;
-      }
+    const isEevee =
+      selectedPokemon.name === "eevee" ||
+      selectedPokemon.name === "eevee-starter" ||
+      selectedPokemon.name === "eevee-gmax";
 
-      if (speciesInfo.name === "eevee") {
-        const stages = evolutionChainNames.map((name) => {
-          const pokemon = allPokemonData.find(
-            (pokemon) => pokemon.name === name
-          );
+    if (isEevee) {
+      const specialEvolutions = [
+        "vaporeon",
+        "jolteon",
+        "flareon",
+        "espeon",
+        "umbreon",
+        "leafeon",
+        "glaceon",
+      ];
 
-          const img =
-            pokemon?.sprites.other["official-artwork"].front_default || ""; // Provide a fallback image URL if it's missing
-          return {
-            stage: name,
-            name: pokemon.name, // Extract the name property
-            img: img,
-          };
-        });
+      const stages = specialEvolutions.map((name) => {
+        const pokemon = findPokemonByName(name);
+        const img =
+          pokemon?.sprites.other["official-artwork"].front_default || "";
 
-        const handleClick = (stage) => {
-          const selectedPokemon = allPokemonData.find(
-            (pokemon) => pokemon.name === stage
-          );
-          if (selectedPokemon) {
-            const container = document.querySelector(".pokedex-modal__card");
-            const types = [...selectedPokemon.types]
-              .map((obj) => obj.type.name)
-              .sort();
-            setType(types[0]);
-            setSelectedPokemon(selectedPokemon);
-            setActiveTab("about");
-            container.scrollTop = 0;
-          }
+        return {
+          stage: pokemon,
+          name: "Stage 1",
+          img: img,
         };
+      });
 
-        return stages.map(({ stage, name, img }) => (
+      const handleClick = (stage) => {
+        renderPokemonStage(stage, stage.name, stage.img);
+      };
+
+      return stages.map(({ stage, name, img }) => (
+        <li
+          key={stage.name}
+          className="evolution-chain__pokemon-container"
+          onClick={() => handleClick(stage)}
+        >
+          {stage && (
+            <>
+              <img
+                src={img}
+                alt={stage.name}
+                className="evolution-chain__pokemon-img"
+              />
+              <span className="evolution-chain__pokemon-name">
+                {stage.name}
+              </span>
+              <span className="evolution-chain__pokemon-stage">{name}</span>
+            </>
+          )}
+        </li>
+      ));
+    }
+
+    console.log(evolutionChainNames);
+
+    const stages =
+      selectedPokemon.name === "vaporeon" ||
+      selectedPokemon.name === "jolteon" ||
+      selectedPokemon.name === "flareon" ||
+      selectedPokemon.name === "espeon" ||
+      selectedPokemon.name === "umbreon" ||
+      selectedPokemon.name === "leafeon" ||
+      selectedPokemon.name === "glaceon"
+        ? [
+            {
+              stage: findPokemonByName("eevee"),
+              name: "Basic",
+              img: findPokemonByName("eevee")?.sprites.other["official-artwork"]
+                .front_default,
+            },
+          ]
+        : evolutionChainNames.map((name, index) => {
+            const pokemon = findPokemonByName(name);
+            const img =
+              pokemon?.sprites.other["official-artwork"].front_default || "";
+
+            return {
+              stage: pokemon,
+              name: index === 0 ? "Basic" : `Stage ${index}`,
+              img: img,
+            };
+          });
+
+    const handleClick = (stage) => {
+      renderPokemonStage(stage, stage.name, stage.img);
+    };
+
+    return stages.map(({ stage, name, img }) => {
+      if (stage && stage.name) {
+        return (
           <li
-            key={name}
+            key={stage.name}
             className="evolution-chain__pokemon-container"
             onClick={() => handleClick(stage)}
           >
-            {stage && (
-              <>
-                <img
-                  src={img}
-                  alt={name}
-                  className="evolution-chain__pokemon-img"
-                />
-                <span className="evolution-chain__pokemon-name">
-                  {stage.name}
-                </span>
-                <span className="evolution-chain__pokemon-name">{name}</span>
-                <span className="evolution-chain__pokemon-stage">Stage 1</span>
-              </>
-            )}
-          </li>
-        ));
-      }
-    }
-
-    let stages;
-
-    if (
-      speciesInfo.name === "vaporeon" ||
-      speciesInfo.name === "jolteon" ||
-      speciesInfo.name === "flareon" ||
-      speciesInfo.name === "espeon" ||
-      speciesInfo.name === "umbreon" ||
-      speciesInfo.name === "leafeon" ||
-      speciesInfo.name === "glaceon"
-    ) {
-      stages = [
-        {
-          stage: basicStagePokemon,
-          name: "Basic",
-          img: basicStagePokemon?.sprites.other["official-artwork"]
-            .front_default,
-        },
-      ];
-    } else {
-      stages = [
-        {
-          stage: basicStagePokemon,
-          name: "Basic",
-          img: basicStagePokemon?.sprites.other["official-artwork"]
-            .front_default,
-        },
-        {
-          stage: stageOnePokemon,
-          name: "Stage 1",
-          img: stageOnePokemon?.sprites.other["official-artwork"].front_default,
-        },
-        {
-          stage: stageTwoPokemon,
-          name: "Stage 2",
-          img: stageTwoPokemon?.sprites.other["official-artwork"].front_default,
-        },
-      ];
-    }
-
-    const handleClick = (stage) => {
-      const container = document.querySelector(".pokedex-modal__card");
-      const types = [...stage.types].map((obj) => obj.type.name).sort();
-      setType(types[0]);
-      setSelectedPokemon(stage);
-      setActiveTab("about");
-      container.scrollTop = 0;
-    };
-
-    return stages.map(({ stage, name, img }) => (
-      <li
-        key={name}
-        className="evolution-chain__pokemon-container"
-        onClick={() => handleClick(stage)}
-      >
-        {stage ? (
-          <>
             <img
               src={img}
-              alt={name}
+              alt={stage.name}
               className="evolution-chain__pokemon-img"
             />
             <span className="evolution-chain__pokemon-name">{stage.name}</span>
             <span className="evolution-chain__pokemon-stage">{name}</span>
-          </>
-        ) : null}
-      </li>
-    ));
+          </li>
+        );
+      } else {
+        return null; // Skip rendering the <li> element if stage.name doesn't exist
+      }
+    });
   };
 
   if (error) {
