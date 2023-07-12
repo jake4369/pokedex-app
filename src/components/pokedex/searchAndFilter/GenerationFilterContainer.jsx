@@ -28,6 +28,7 @@ const GenerationFilterContainer = ({
   setShowFilters,
   setShowPokemon,
   setCurrentPage,
+  setActiveFilter,
 }) => {
   function convertToRoman(num) {
     const romanNumerals = [
@@ -83,6 +84,7 @@ const GenerationFilterContainer = ({
     setShowFilters(false);
     setShowPokemon(true);
     setCurrentPage(1);
+    setActiveFilter("");
   };
 
   const cards = images.map((img, index) => {

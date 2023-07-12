@@ -7,6 +7,7 @@ const TypeIconContainer = ({
   setPokemonName,
   filterPokemon,
   setCurrentPage,
+  setActiveFilter,
   setShowFilters,
   setShowPokemon,
 }) => {
@@ -25,6 +26,7 @@ const TypeIconContainer = ({
           setCurrentPage={setCurrentPage}
           setShowFilters={setShowFilters}
           setShowPokemon={setShowPokemon}
+          setActiveFilter={setActiveFilter}
         />
 
         <p>{type}</p>

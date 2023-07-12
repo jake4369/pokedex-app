@@ -93,6 +93,7 @@ const SearchAndFilter = ({
                   setPokemonName={setPokemonName}
                   setSelectedType={setSelectedType}
                   filterPokemon={filterPokemon}
+                  setActiveFilter={setActiveFilter}
                   setCurrentPage={setCurrentPage}
                   setShowFilters={setShowFilters}
                   setShowPokemon={setShowPokemon}
@@ -114,6 +115,7 @@ const SearchAndFilter = ({
                 <GenerationFilterContainer
                   allPokemonData={allPokemonData}
                   setFilteredPokemon={setFilteredPokemon}
+                  setActiveFilter={setActiveFilter}
                   setShowPokemon={setShowPokemon}
                   setShowFilters={setShowFilters}
                   setCurrentPage={setCurrentPage}
