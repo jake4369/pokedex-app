@@ -39,6 +39,7 @@ const NavBar = () => {
     const handleResize = () => {
       if (window.innerWidth >= 600) {
         setMenuOpen(false);
+        setAnimationClass("");
       }
     };
 
